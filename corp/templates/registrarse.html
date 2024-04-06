@@ -1,0 +1,17 @@
+{% extends 'base2.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'iniciarSesionRegistrarse.css' %}">
+
+<title>Registrate</title>
+<div class="nonavbar">
+    <form method="POST" autocomplete="off" class="contenedor">
+        <h2 class="texto">Registrate</h2>
+        {% csrf_token %}
+        {{registerform.as_p}}
+        <input type="submit" value="Registrate"/>
+        <div class="cuenta">Ya tienes una cuenta? <a class="signuplogin" href="/iniciarSesion">Inicia Sesion</a></div>
+    </form>
+</div>
+
+{% endblock content %}
