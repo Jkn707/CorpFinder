@@ -11,3 +11,4 @@ class CreateUserForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
+    Tipo = forms.ChoiceField(choices=[('Empresa','Empresa'), ('Persona', 'Persona')])
