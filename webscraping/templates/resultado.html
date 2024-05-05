@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de búsqueda</title>
+</head>
+<body>
+    <h1>Empresas encontradas</h1>
+    <ol>
+        {% if empresas_link %}
+            {% for nombre_empresa, enlace in empresas_link.items %}
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="selected_empresa" value="{{ nombre_empresa }}">
+                        <button type="submit" class="empresa-button">{{ nombre_empresa }}</button>
+                    </form>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron empresas.</p>
+        {% endif %}
+    </ol>
+</body>
+</html>
+{% endblock %}
