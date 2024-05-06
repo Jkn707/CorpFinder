@@ -10,4 +10,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Borrar todos los datos de la tabla MiModelo
         Empresa.objects.all().delete()
-        self.stdout.write(self.style.SUCCESS('Datos de la tabla MiModelo borrados exitosamente'))
+        self.stdout.write(self.style.SUCCESS('Datos de la tabla Empresa borrados exitosamente'))
