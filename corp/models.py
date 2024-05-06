@@ -3,7 +3,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
-class Empresa(models.Model):
+class Prototype:
+    def clonar(self):
+        raise NotImplementedError("Metodo clonar no implementado")
+    
+class Empresa(models.Model,Prototype):
     id = models.IntegerField(primary_key=True, validators=[MinValueValidator(1),MaxValueValidator(999_999_999)], unique=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=250)
