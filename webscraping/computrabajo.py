@@ -48,6 +48,28 @@ def obtener_datos_empresa(link_empresa):
     beneficios = int((soup.find("a", title="Beneficios").find("span", class_="fc_gray").text.replace(".", "") if soup.find("a", title="Beneficios") and soup.find("a", title="Beneficios").find("span", class_="fc_gray") else 0))
     fotos = int((soup.find("a", title="Fotos").find("span", class_="fc_gray").text.replace(".", "") if soup.find("a", title="Fotos") and soup.find("a", title="Fotos").find("span", class_="fc_gray") else 0))
 
+    #Datos evaluaciones
+    url2 = base_url + soup.find("a", title="Evaluaciones")["href"]
+    res2 = requests.get(url2, headers=headers)
+
+    if res2.status_code != 200:
+        print(f"Error: La segunda solicitud no pudo ser completada. Código de estado: {res.status_code}")
+        print(url2)
+        return None
+
+    soup2 = BeautifulSoup(res2.text, "html.parser")
+
+    ##Porcentajes
+    porcentajes_evaluaciones = soup2.find_all("p", class_="fs18 fwB")
+    calificaciones = [float(calificacion.text.replace(',', '.')) for calificacion in porcentajes_evaluaciones]
+    calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = calificaciones
+
+
+    print(calificacion_ambiente_trabajo)
+    print(calificacion_salario_prestaciones)
+    print(calificacion_oportunidades_carrera)
+    print(calificacion_director_general)
+
     datos_empresa = {
         "nombre_empresa": nombre_empresa,
         "logo_empresa": logo_empresa,
@@ -65,6 +87,10 @@ def obtener_datos_empresa(link_empresa):
         "numero_beneficios": beneficios,
         "numero_fotos": fotos,
         "calificacion_empresa": calificacion_empresa,
+        "calificacion_ambiente_trabajo": calificacion_ambiente_trabajo,
+        "calificacion_salario_prestaciones": calificacion_salario_prestaciones,
+        "calificacion_oportunidades_carrera": calificacion_oportunidades_carrera,
+        "calificacion_director_general": calificacion_director_general
     }
 
     return datos_empresa

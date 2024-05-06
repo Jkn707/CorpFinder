@@ -37,5 +37,11 @@ class Empresa(models.Model):
     # Valoración
     calificacion_empresa = models.FloatField(default=0.0, null=True)
 
+    #Porcentajes
+    calificacion_ambiente_trabajo = models.FloatField(default=0.0, null=True)
+    calificacion_salario_prestaciones = models.FloatField(default=0.0, null=True)
+    calificacion_oportunidades_carrera = models.FloatField(default=0.0, null=True)
+    calificacion_director_general = models.FloatField(default=0.0, null=True)
+
     def __str__(self):
         return self.nombre_empresa
