@@ -49,26 +49,32 @@ def obtener_datos_empresa(link_empresa):
     fotos = int((soup.find("a", title="Fotos").find("span", class_="fc_gray").text.replace(".", "") if soup.find("a", title="Fotos") and soup.find("a", title="Fotos").find("span", class_="fc_gray") else 0))
 
     #Datos evaluaciones
-    url2 = base_url + soup.find("a", title="Evaluaciones")["href"]
-    res2 = requests.get(url2, headers=headers)
+    try:
+        link_evaluaciones = soup.find("a", title="Evaluaciones")
+        if link_evaluaciones:
+            url2 = base_url + link_evaluaciones["href"]
+            res2 = requests.get(url2, headers=headers)
 
-    if res2.status_code != 200:
-        print(f"Error: La segunda solicitud no pudo ser completada. Código de estado: {res.status_code}")
-        print(url2)
-        return None
+            if res2.status_code != 200:
+                print(f"Error: La segunda solicitud no pudo ser completada. Código de estado: {res.status_code}")
+                print(url2)
+                return None
 
-    soup2 = BeautifulSoup(res2.text, "html.parser")
+            soup2 = BeautifulSoup(res2.text, "html.parser")
 
-    ##Porcentajes
-    porcentajes_evaluaciones = soup2.find_all("p", class_="fs18 fwB")
-    calificaciones = [float(calificacion.text.replace(',', '.')) for calificacion in porcentajes_evaluaciones]
-    calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = calificaciones
+            ##Porcentajes
+            porcentajes_evaluaciones = soup2.find_all("p", class_="fs18 fwB")
+            calificaciones = [float(calificacion.text.replace(',', '.')) for calificacion in porcentajes_evaluaciones]
+            calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = calificaciones
+
+        else:
+            calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = [None] * 4
 
 
-    print(calificacion_ambiente_trabajo)
-    print(calificacion_salario_prestaciones)
-    print(calificacion_oportunidades_carrera)
-    print(calificacion_director_general)
+    except AttributeError:
+        calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = [None] * 4
+
+    ##Comentarios
 
     datos_empresa = {
         "nombre_empresa": nombre_empresa,
@@ -94,3 +100,4 @@ def obtener_datos_empresa(link_empresa):
     }
 
     return datos_empresa
+
