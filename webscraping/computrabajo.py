@@ -3,9 +3,12 @@ import urllib.parse
 from bs4 import BeautifulSoup
 from datetime import datetime
 
+userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+base_url = "https://co.computrabajo.com"
+headers = {"user-agent" : userAgent}
+
 def buscar_empresas(busqueda):
     url_busqueda = "https://co.computrabajo.com/empresas/buscador?q=" + urllib.parse.quote(busqueda)
-    headers = {"user-agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"}
     res_busqueda = requests.get(url_busqueda, headers=headers)
     soup_busqueda = BeautifulSoup(res_busqueda.text, "html.parser")
     resultados = soup_busqueda.find_all("a", class_="js-o-link")
@@ -16,11 +19,7 @@ def buscar_empresas(busqueda):
     return empresas_link
 
 def obtener_datos_empresa(link_empresa):
-    base_url = "https://co.computrabajo.com"
     url = base_url + link_empresa
-    headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
-    }
     res = requests.get(url, headers=headers)
 
     if res.status_code != 200:
@@ -70,7 +69,6 @@ def obtener_datos_empresa(link_empresa):
         else:
             calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = [None] * 4
 
-
     except AttributeError:
         calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = [None] * 4
 
@@ -100,4 +98,3 @@ def obtener_datos_empresa(link_empresa):
     }
 
     return datos_empresa
-
