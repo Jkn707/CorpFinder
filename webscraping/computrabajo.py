@@ -7,7 +7,16 @@ userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML
 base_url = "https://co.computrabajo.com"
 headers = {"user-agent" : userAgent}
 
-def buscar_empresas(busqueda):
+#Funcion comentarios
+def obtenerComentarios(url):
+    page = 1
+    while True:
+        if page != 1:
+            link = f'{url}?p={page}'
+            res_busqueda = requests.get(link.text, "html.parser")
+
+
+def buscarEmpresas(busqueda):
     url_busqueda = "https://co.computrabajo.com/empresas/buscador?q=" + urllib.parse.quote(busqueda)
     res_busqueda = requests.get(url_busqueda, headers=headers)
     soup_busqueda = BeautifulSoup(res_busqueda.text, "html.parser")
@@ -18,7 +27,7 @@ def buscar_empresas(busqueda):
 
     return empresas_link
 
-def obtener_datos_empresa(link_empresa):
+def obtenerDatosEmpresa(link_empresa):
     url = base_url + link_empresa
     res = requests.get(url, headers=headers)
 

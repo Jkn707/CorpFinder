@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import NombreEmpresa
-from .computrabajo import buscar_empresas, obtener_datos_empresa
+from .computrabajo import buscarEmpresas, obtenerDatosEmpresa
 from .models import Empresa
 
-def ScrapEmpresa(request):
+def scrapEmpresa(request):
     form = NombreEmpresa()
 
     if request.method == "POST":
         form = NombreEmpresa(request.POST)
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
-            opciones = buscar_empresas(nombre)
+            opciones = buscarEmpresas(nombre)
             context = {'nombre': nombre, 'empresas_link': opciones}
             
             if opciones:
@@ -25,7 +25,7 @@ def ScrapEmpresa(request):
 
     return render(request, 'busqueda.html', {'form': form})
 
-def ResultadoEmpresa(request):
+def resultadoEmpresa(request):
     form = NombreEmpresa()  # Instancia del formulario de búsqueda
     opciones = request.session.get('opciones')
     
@@ -35,7 +35,7 @@ def ResultadoEmpresa(request):
         print(selected_empresa)
         if selected_empresa:
             if opciones:
-                datos_empresa = obtener_datos_empresa(opciones[selected_empresa])
+                datos_empresa = obtenerDatosEmpresa(opciones[selected_empresa])
                 print(datos_empresa)
                 if datos_empresa:
                     nueva_empresa = Empresa(**datos_empresa)
