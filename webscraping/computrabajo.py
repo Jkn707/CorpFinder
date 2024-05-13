@@ -8,12 +8,81 @@ base_url = "https://co.computrabajo.com"
 headers = {"user-agent" : userAgent}
 
 #Funcion comentarios
-def obtenerComentarios(url):
+def obtenerComentarios(url, limite_paginas=10):
+    url = base_url + url
+    res = requests.get(url, headers=headers)
+
+    if res.status_code != 200:
+        print(f"Error: La solicitud no pudo ser completada. Código de estado: {res.status_code}")
+        return None
+
+    soup = BeautifulSoup(res.text, "html.parser")
+
+    link_evaluaciones = soup.find("a", title="Evaluaciones")
+    if link_evaluaciones:
+        url2 = base_url + link_evaluaciones["href"]
+        res = requests.get(url2, headers=headers)
+    if res.status_code != 200:
+        print(f"Error: La segunda solicitud no pudo ser completada. Código de estado: {res.status_code}")
+        return None
+
     page = 1
-    while True:
+    comentarios_totales = []
+
+    while page <= limite_paginas:
         if page != 1:
-            link = f'{url}?p={page}'
-            res_busqueda = requests.get(link.text, "html.parser")
+            url_pagina = f"{url2}?p={page}"
+        else:
+            url_pagina = url2
+
+        res_busqueda = requests.get(url_pagina, headers=headers)
+        soup2 = BeautifulSoup(res_busqueda.text, "html.parser")
+
+        comentarios = soup2.find_all("div", class_="pt10 pb10 mbB")
+
+        for comentario in comentarios:
+            info = comentario.select_one('p.list_dot.fc_aux.mb10').text.strip().replace("\n","").replace("\r","")
+            contenido_tags = comentario.find_all('p', class_='mb10')[-1].contents
+
+            contenido = ""
+            for tag in contenido_tags:
+                if tag.name == "strong":
+                    contenido += f"<strong>{tag.get_text(strip=True)}</strong> "
+                elif tag.name == "span":
+                    contenido += f"{tag.get_text(strip=True)} "
+                else:
+                    contenido += f"{tag.get_text(strip=True)}"
+
+            # Buscar la ubicación en la segunda parte de la cadena 'info'
+            partes = info.split()
+            fecha = partes[-2] + " " + partes[-1]
+            if len(partes) == 5:
+                ubicacion = partes[2]
+            elif len(partes) == 6:
+                ubicacion = partes[2] + " " + partes[3]
+            elif len(partes) == 7:
+                ubicacion = partes[2] + " " + partes[3] + " " + partes[4]
+
+            # Almacenar los datos del comentario en una estructura de datos adecuada
+            datos_comentario = {
+                'ubicacion': ubicacion,
+                'fecha': fecha,
+                'contenido': contenido.strip()
+            }
+
+            comentarios_totales.append(datos_comentario)
+
+        # Busca el enlace a la siguiente página de comentarios
+        next_page_link = soup.find("a", id="nextPage")
+
+        if next_page_link:
+            # Si se encuentra el enlace a la siguiente página, actualiza la página
+            page += 1
+        else:
+            # Si no se encuentra el enlace, termina el bucle
+            break
+
+    return comentarios_totales
 
 
 def buscarEmpresas(busqueda):
@@ -81,8 +150,6 @@ def obtenerDatosEmpresa(link_empresa):
     except AttributeError:
         calificacion_ambiente_trabajo, calificacion_salario_prestaciones, calificacion_oportunidades_carrera, calificacion_director_general = [None] * 4
 
-    ##Comentarios
-
     datos_empresa = {
         "nombre_empresa": nombre_empresa,
         "logo_empresa": logo_empresa,
@@ -103,7 +170,7 @@ def obtenerDatosEmpresa(link_empresa):
         "calificacion_ambiente_trabajo": calificacion_ambiente_trabajo,
         "calificacion_salario_prestaciones": calificacion_salario_prestaciones,
         "calificacion_oportunidades_carrera": calificacion_oportunidades_carrera,
-        "calificacion_director_general": calificacion_director_general
+        "calificacion_director_general": calificacion_director_general,
     }
 
     return datos_empresa

@@ -45,3 +45,10 @@ class Empresa(models.Model):
 
     def __str__(self):
         return self.nombre_empresa
+
+
+class ComentariosComputrabajo(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    ubicacion = models.CharField(max_length=255, blank=True, null=True)
+    fecha = models.CharField(max_length=255, blank=True, null=True)
+    contenido = models.CharField(max_length=255, blank=True, null=True)

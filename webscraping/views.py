@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import NombreEmpresa
-from .computrabajo import buscarEmpresas, obtenerDatosEmpresa
-from .models import Empresa
+from .computrabajo import buscarEmpresas, obtenerDatosEmpresa, obtenerComentarios
+from .models import Empresa, ComentariosComputrabajo
 
 def scrapEmpresa(request):
     form = NombreEmpresa()
@@ -36,10 +36,16 @@ def resultadoEmpresa(request):
         if selected_empresa:
             if opciones:
                 datos_empresa = obtenerDatosEmpresa(opciones[selected_empresa])
+                comentarios = obtenerComentarios(opciones[selected_empresa])
+                print(f'aca {opciones[selected_empresa]}')
+                print(f'comentarios = {comentarios}')
                 print(datos_empresa)
                 if datos_empresa:
                     nueva_empresa = Empresa(**datos_empresa)
                     nueva_empresa.save()
+                    for comentario in comentarios:
+                        nuevo_comentario = ComentariosComputrabajo(ubicacion=comentario['ubicacion'], fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa)
+                        nuevo_comentario.save()
                     messages.success(request, "Empresa guardada correctamente")
                     return redirect('scrapEmpresa')  # Redireccionar a la página ScrapEmpresa
                 else:
