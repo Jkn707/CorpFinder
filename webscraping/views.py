@@ -37,7 +37,6 @@ def resultadoEmpresa(request):
             if opciones:
                 datos_empresa = obtenerDatosEmpresa(opciones[selected_empresa])
                 comentarios = obtenerComentarios(opciones[selected_empresa])
-                print(f'aca {opciones[selected_empresa]}')
                 print(f'comentarios = {comentarios}')
                 print(datos_empresa)
                 if datos_empresa:
