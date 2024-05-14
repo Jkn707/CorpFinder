@@ -73,7 +73,7 @@ def obtenerComentarios(url, limite_paginas=5):
             comentarios_totales.append(datos_comentario)
 
         # Busca el enlace a la siguiente página de comentarios
-        next_page_link = soup.find("a", id="nextPage")
+        next_page_link = soup2.find("a", id="nextPage")
 
         if next_page_link:
             # Si se encuentra el enlace a la siguiente página, actualiza la página
