@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'paginaPrincipal.css' %}">
 
 <h1> Bienvenido a CorpFinder {{name}} </h1>
-<h2> Esta es la página de inicio de empresas </h2>
+<h2> Esta es la página de inicio </h2>
 
 <div class="container">
     <form action="">
@@ -17,13 +17,9 @@
     </form>
     <p>Buscando para {{searchTerm}}</p>
         {% for Empresa in empresas %}
-                <h2>{{Empresa.nombre}}</h2>
-                <img src="{{Empresa.imagen.url}}" alt="">
-                <h3>Descripción: {{Empresa.descripcion}}</h3>
-                <h3>Tipo: {{Empresa.tipo}}</h3>
-                <h3>Ubicación: {{Empresa.ubicacion}}</h3>
-                <h3>Salario: {{Empresa.salario}}</h3>
-                <h3>Redes sociales: {{Empresa.redes}}</h3>
+                <h2>{{Empresa.nombre_empresa}}</h2>
+                <img src="{{Empresa.logo_empresa}}" alt="">
+                <br><a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
         {% endfor %}
     <br>
 </div>
