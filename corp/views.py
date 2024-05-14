@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse,JsonResponse
 from . forms import CreateUserForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Empresa
+from webscraping.models import Empresa
 
 # Create your views here.
 
@@ -28,10 +28,21 @@ def paginaPrincipalEmpresa(request):
    #  return render(request, 'home.html',{'name': 'Paola Noreña'})
    searchTerm = request.GET.get('buscarEmpresa')
    if searchTerm:
-      empresas = Empresa.objects.filter(nombre__icontains=searchTerm)
+      empresas = Empresa.objects.filter(nombre_empresa__icontains=searchTerm)
    else:
       empresas = Empresa.objects.all()
    return render(request,'paginaPrincipalEmpresa.html',{'searchTerm':searchTerm, 'empresas':empresas})
+
+@login_required(login_url='/iniciarSesion')
+def detallesEmpresa(request, id):
+   template_name = 'detallesEmpresa.html'
+   empresa = get_object_or_404(Empresa, id=id)
+   comentarios = empresa.comentarios.all()
+   return render(request, template_name, {'empresa':empresa, 'comentarios':comentarios})
+
+
+   
+    
 
 
 def home(request):

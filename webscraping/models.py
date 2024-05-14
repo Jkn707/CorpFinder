@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 
 class Empresa(models.Model):
+    id = models.AutoField(primary_key=True)
     nombre_empresa = models.CharField(max_length=200, null=True)
     logo_empresa = models.URLField(blank=True, null=True)
     banner_empresa = models.URLField(blank=True, null=True)
@@ -48,7 +49,8 @@ class Empresa(models.Model):
 
 
 class ComentariosComputrabajo(models.Model):
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='comentarios')
     ubicacion = models.CharField(max_length=255, blank=True, null=True)
     fecha = models.CharField(max_length=255, blank=True, null=True)
     contenido = models.CharField(max_length=255, blank=True, null=True)
+
