@@ -4,7 +4,7 @@ from django.http import HttpResponse,JsonResponse,HttpRequest
 from . forms import CreateUserForm, LoginForm
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from webscraping.models import Empresa
+from webscraping.models import Empresa, ComentariosComputrabajo
 
 User = get_user_model()
 
@@ -17,7 +17,7 @@ def paginaPrincipal(request):
    #  return render(request, 'home.html',{'name': 'Paola Noreña'})
    searchTerm = request.GET.get('buscarEmpresa')
    if searchTerm:
-      empresas = Empresa.objects.filter(nombre__icontains=searchTerm)
+      empresas = Empresa.objects.filter(nombre_empresagi__icontains=searchTerm)
    else:
       empresas = Empresa.objects.all()
    return render(request,'paginaPrincipal.html',{'searchTerm':searchTerm, 'empresas':empresas})
@@ -39,7 +39,7 @@ def paginaPrincipalEmpresa(request):
 def detallesEmpresa(request, id):
    template_name = 'detallesEmpresa.html'
    empresa = get_object_or_404(Empresa, id=id)
-   comentarios = empresa.comentarios.all()
+   comentarios = ComentariosComputrabajo.objects.filter(empresa_id=empresa.id)
    return render(request, template_name, {'empresa':empresa, 'comentarios':comentarios})
 
 
