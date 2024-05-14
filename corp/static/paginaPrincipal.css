@@ -45,6 +45,11 @@ form {
     padding: 1% 1% 0% 1%;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+}
+
+.empresas::-webkit-scrollbar {
+    display: none;
 }
 
 .empresa {
