@@ -8,7 +8,7 @@ base_url = "https://co.computrabajo.com"
 headers = {"user-agent" : userAgent}
 
 #Funcion comentarios
-def obtenerComentarios(url, limite_paginas=10):
+def obtenerComentarios(url, limite_paginas=5):
     url = base_url + url
     res = requests.get(url, headers=headers)
 

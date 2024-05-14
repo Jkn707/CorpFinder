@@ -53,4 +53,7 @@ class ComentariosComputrabajo(models.Model):
     ubicacion = models.CharField(max_length=255, blank=True, null=True)
     fecha = models.CharField(max_length=255, blank=True, null=True)
     contenido = models.CharField(max_length=255, blank=True, null=True)
+    calificacion = models.IntegerField(default=0, null=True)
+    sentimiento = models.CharField(max_length=255, blank=True, null=True)
+    autor = models.CharField(max_length=255, blank=True, default="Anonimo")
 
