@@ -1,0 +1,17 @@
+{% extends 'base3.html' %}
+{% block content %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credenciales</title>
+</head>
+<body>
+    <h1>Credenciales del usuario</h1>
+    <p>Imagen: <img src="{{ crendencial.imagen.url }}" alt="Imagen de perfil"></p>
+    <p>redes sociales: {{ usuario.redes }}</p>
+</body>
+</html>
+{% endblock content %}
