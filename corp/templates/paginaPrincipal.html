@@ -3,29 +3,39 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'paginaPrincipal.css' %}">
 
-<h1> Bienvenido a CorpFinder {{name}} </h1>
-<h2> Esta es la página de inicio </h2>
-
-<div class="container">
-    <form action="">
-        <div class="mb-3">
-            <label for="buscarEmpresa" class="form-label">
-                Buscar por Empresa:
-            </label>
-            <input type="text" class="form-control" name="buscarEmpresa">
+<body>
+    <div class="contenedor">
+        <div class="perfil">
+            <a href="/perfil">Tu perfil</a>
         </div>
-    </form>
-    <p>Buscando para {{searchTerm}}</p>
-        {% for Empresa in empresas %}
-                <h2>{{Empresa.nombre}}</h2>
-                <img src="{{Empresa.imagen.url}}" alt="">
-                <h3>Descripción: {{Empresa.descripcion}}</h3>
-                <h3>Tipo: {{Empresa.tipo}}</h3>
-                <h3>Ubicación: {{Empresa.ubicacion}}</h3>
-                <h3>Salario: {{Empresa.salario}}</h3>
-                <h3>Redes sociales: {{Empresa.redes}}</h3>
-        {% endfor %}
-    <br>
-</div>
+        <form class="busqueda" action="">
+            <div class="mb-3">
+                <label for="buscarEmpresa" class="form-label">
+                    Buscar Empresa:
+                </label>
+                <input type="text" class="form-control" name="buscarEmpresa">
+            </div>
+        </form>
+        <p class="buscando">Buscando para {{searchTerm}}</p>
+            <div class="empresas">
+                {% for Empresa in empresas %}
+                <div class="empresa">
+                    <div class="uno">
+                        <img class="imag" src="{{Empresa.imagen.url}}" alt="">
+                        <h3 class="tipo">Tipo: {{Empresa.tipo}}</h3>
+                        <h3 class="ubi">Ubicación: {{Empresa.ubicacion}}</h3>
+                        <h3 class="salario">Salario: {{Empresa.salario}}</h3>
+                    </div>
+                    <div class="dos">
+                        <h2 class="nombre">{{Empresa.nombre}}</h2>
+                        <h3 class="Desc">Descripción: {{Empresa.descripcion}}</h3>
+                        <h3 class="calif">Calificacion: {{Empresa.calificacion}}</h3>
+                        <h3 class="redes">Redes sociales: {{Empresa.redes}}</h3>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+</body>
 
 {% endblock content %}

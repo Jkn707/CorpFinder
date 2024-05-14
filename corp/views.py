@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,HttpRequest
 from . forms import CreateUserForm, LoginForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from .models import Empresa
+
+User = get_user_model()
 
 # Create your views here.
 
@@ -73,5 +75,4 @@ def registrarse(request):
 def logout_(request):
     logout(request)
     return redirect("/")
-
 
