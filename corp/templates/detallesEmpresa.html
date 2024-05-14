@@ -7,12 +7,12 @@
     <div class = "container">
         <div class = "row">
             <div class = "col-12">
-                <h1>{{empresa.nombre_empresa}}</h1>
+                <img src="{{empresa.logo_empresa}}" alt="">
             </div>
         </div>
         <div class = "row">
             <div class = "col-12">
-                <img src="{{empresa.logo_empresa}}" alt="">
+                <h1>{{empresa.nombre_empresa}}</h1>
             </div>
         </div>
         <div class = "row">
@@ -20,6 +20,25 @@
                 <p>{{empresa.subtitle}}</p>
                 <p>{{empresa.subtitle_content}}</p>
             </div>
+        </div>
+    </div>
+    <div class="col-md-8 card mb-4 mt-3">
+        <div class="card-body">
+            <!-- comments -->
+            <h2>{{ comentarios.count }} comentarios</h2>
+            {% for comment in comentarios %}
+                <div class="comments" style="padding: 10px;">
+                    <p class="font-weight-bold">
+                        {{ comment.autor }}
+                        <span class="text-muted font-weight-normal">
+                            Desde {{ comment.ubicacion }} en {{ comment.fecha }} 
+                        </span>
+                    </p>
+                    <p>
+                        {{ comment.contenido | linebreaks }}
+                    </p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>
