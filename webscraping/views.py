@@ -37,8 +37,6 @@ def resultadoEmpresa(request):
             if opciones:
                 datos_empresa = obtenerDatosEmpresa(opciones[selected_empresa])
                 comentarios = obtenerComentarios(opciones[selected_empresa], limite_paginas=5)
-                print(f'comentarios = {comentarios}')
-                print(datos_empresa)
                 if datos_empresa:
                     nueva_empresa = Empresa(**datos_empresa)
                     nueva_empresa.save()
