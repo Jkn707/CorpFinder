@@ -22,16 +22,30 @@
             </div>
         </div>
     </div>
+
+    <div class="comment-form">
+        <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
+        Agrega comentario
+        <div id = "popupForm" class = "popup">
+            <form method="post" id="myForm" class="popup-content">
+                {% csrf_token %}
+                {{ comentario_form.as_p }}
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+        <script src="{% static 'detallesEmpresa.js' %}"></script>
+    </div>
+
     <div class="col-md-8 card mb-4 mt-3">
         <div class="card-body">
             <!-- comments -->
-            <h2>{{ comentarios.count }} comentarios</h2>
-            {% for comment in comentarios %}
+            <h2>{{ totalComentarios }} comentarios</h2>
+            {% for comment in comentariosPropios %}
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold">
                         {{ comment.autor }}
                         <span class="text-muted font-weight-normal">
-                            Desde {{ comment.ubicacion }} en {{ comment.fecha }} 
+                            {{ comment.fecha }} 
                         </span>
                     </p>
                     <p>
@@ -39,6 +53,19 @@
                     </p>
                 </div>
             {% endfor %}
+            {% for comment in comentariosCT %}
+                <div class="comments" style="padding: 10px;">
+                    <p class="font-weight-bold">
+                        {{ comment.autor }}
+                        <span class="text-muted font-weight-normal">
+                            Desde {{ comment.ubicacion}} en {{ comment.fecha }}
+                        </span>
+                    </p>
+                    <p>
+                        {{ comment.contenido | linebreaks }}
+                    </p>
+                </div>
+            {% endfor %} 
         </div>
     </div>
 </body>
