@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse,JsonResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Credenciales
 from django.shortcuts import get_object_or_404
-from .form import MostrarTextoForm
+from .form import UserForm, CredencialForm
 
 # Create your views here.
 
@@ -17,17 +17,17 @@ def credenciales(request):
 
    return render(request,'credenciales.html',{'cred_usuario': usuario,'credencial': credencial})
 
-def cambiar_datospers(request):
-   form = MostrarTextoForm(request.POST or None)
-   if request.method == 'POST' and form.is_valid():
-      mostrar_input = form.cleaned_data['mostrar_input']
-      texto = form.cleaned_data['texto']
-      return render(request, 'credenciales.html', {'form':form,'mostrar_input':mostrar_input,'texto':texto})
-   return render(request, 'credenciales.html',{'form':form})
+def edit(request):
+    user_form = UserForm(instance=request.user)
+    credencial = Credenciales.objects.get(usuario=request.user)
+    credencial_form = CredencialForm(instance=credencial)
 
-def vista_compuesta(request):
-   resultado_vista1 = cambiar_datospers(request)
-   resultado_vista2 = credenciales(request)
-   contenido = resultado_vista1.content + resultado_vista2.content
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        credencial_form = CredencialForm(request.POST, instance=request.user.credencial)
+        if user_form.is_valid() and credencial_form.is_valid():
+            user_form.save()
+            credencial_form.save()
+            return redirect('credenciales')  # Redirige a la página de perfil después de guardar los cambios
 
-   return HttpResponse(contenido)
+    return render(request, 'edit.html', {'user_form': user_form, 'credencial_form': credencial_form})

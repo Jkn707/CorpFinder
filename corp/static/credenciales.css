@@ -33,7 +33,10 @@ h2 button{
     margin-left: 600px; 
 }
 
-.file_up {
-    display: none;
-
+form {
+    display: inline; /* Para que el formulario se muestre en línea */
+    margin: 0; /* Elimina cualquier margen que el formulario pueda tener por defecto */
+    padding: 0; /* Elimina cualquier relleno que el formulario pueda tener por defecto */
+    border: none; /* Elimina cualquier borde que el formulario pueda tener por defecto */
+    background: none; /* Elimina cualquier fondo que el formulario pueda tener por defecto */
 }
