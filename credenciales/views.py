@@ -24,7 +24,7 @@ def edit(request):
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        credencial_form = CredencialForm(request.POST, instance=request.user.credencial)
+        credencial_form = CredencialForm(request.POST, instance=credencial)
         if user_form.is_valid() and credencial_form.is_valid():
             user_form.save()
             credencial_form.save()
