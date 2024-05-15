@@ -8,7 +8,7 @@ class Credenciales(models.Model):
     #relaciono Uno a Uno Users con credenciales
     usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='credenciales', default=None)
     #campo de imagen
-    imagen = models.ImageField(upload_to='credenciales/images/', default='credenciales/images/image_default.png')
+    imagen = models.ImageField(upload_to='credenciales/images/', default='credenciales/images/image_5.png')
     #campo de redes sociales
     redes = models.TextField(default = 'N/A')  
     #hoja de vida

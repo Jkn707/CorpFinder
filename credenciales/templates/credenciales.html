@@ -2,16 +2,71 @@
 {% block content %}
 {% load static %}
 
-<html lang="en">
+<link rel="stylesheet" href="{% static 'credenciales.css' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credenciales</title>
 </head>
 <body>
-    <h1>Credenciales del usuario</h1>
-    <p>Imagen: <img src="{{ crendencial.imagen.url }}" alt="Imagen de perfil"></p>
-    <p>redes sociales: {{ usuario.redes }}</p>
+ <div>
+     <h1 class="title">Tus Credenciales</h1>
+     <div class="img-container">
+       <img src="{{ credencial.imagen.url }}" alt="Imagen de perfil">
+       <input class="file_up" type="file" name="file_upload" id="file_up">
+       <button onclick="document.getElementById('file_up').click()" class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button>       
+     </div>
+     <div class="datos">
+     <h2 class="info">Redes Sociales: <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button></h2>
+     <p class="info">{{ credencial.redes }}</p>
+    </div>
+    <div class="datos">
+        <h2 class="info">Datos Personales:
+            <!-- <input class="file_up" type="text" name="file_upload" id="file_up3">
+            <button onclick="document.getElementById('file_up3').click()" class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> -->
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                {% if mostrar_input %}
+                <input value="{{texto}}" class="file_up3" type="text" name="file_upload" id="file_up3"> 
+                {% endif %}
+                <button class="boton" type="submit"><img src="/media/credenciales/images/edit.png" alt=""></button>       
+            </form>
+        </h2>
+        <p class="info"> Nombres: {{ cred_usuario.first_name}}</p>
+        <p class="info"> Apellido: {{ cred_usuario.last_name}}</p>
+        <p class="info"> E-mail: {{ cred_usuario.email}}</p>
+    </div>
+    <div class="datos">
+        <h2 class="info">Tu CV 
+            <input class="file_up" type="file" name="file_upload" id="file_up2">
+            <button onclick="document.getElementById('file_up2').click()" class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button>
+        </h2>
+    </div>
+    <div class="empresas_fav">
+        <h2 class="info">Tus Empresas Favoritas </h2>
+    </div>
+    <div class="empresas">
+        {% for Empresa in credencial.empresas_favoritas.all %}
+        <div class="empresa">
+            <div class="uno">
+                <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
+                <h4 class="tipo">Tipo: {{Empresa.tipo}}</h4>
+                <h4 class="ubi">Ubicación: {{Empresa.ubicacion}}</h4>
+                <h4 class="salario">Salario: {{Empresa.salario}}</h4>
+            </div>
+            <div class="dos">
+                <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
+                <h4 class="Desc">Descripción: {{Empresa.descripcion}}</h4>
+                <h4 class="calif">Calificacion: {{Empresa.calificacion}}</h4>
+                <h4 class="redes">Redes sociales: {{Empresa.redes}}</h4>
+                <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+</div>
+ </div>
 </body>
-</html>
+
 {% endblock content %}

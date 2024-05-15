@@ -1,0 +1,39 @@
+.title{
+    text-align: center;
+    margin-top: 25px;
+}
+
+.img-container {
+    text-align: center;
+    margin-top: 20px; 
+}
+
+.img-container button{
+    border: none; 
+    border-radius: 3px; 
+    position: relative;
+    top: 80px;
+}
+
+button img{
+    width: 25px;
+    height: 25px;
+}
+
+.datos .info {
+    margin-left: 250px; 
+}
+
+h2 button{
+    border: none; 
+    border-radius: 3px; 
+}
+
+.empresas_fav .info{
+    margin-left: 600px; 
+}
+
+.file_up {
+    display: none;
+
+}
