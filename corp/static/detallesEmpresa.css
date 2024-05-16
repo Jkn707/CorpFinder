@@ -43,3 +43,9 @@
 .popup-content button:hover {
     background-color: #45a049;
 }
+
+.masInfo{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
