@@ -41,7 +41,7 @@ def resultadoEmpresa(request):
                     nueva_empresa = Empresa(**datos_empresa)
                     nueva_empresa.save()
                     for comentario in comentarios:
-                        nuevo_comentario = ComentariosComputrabajo(ubicacion=comentario['ubicacion'], fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa)
+                        nuevo_comentario = ComentariosComputrabajo(ubicacion=comentario['ubicacion'], fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa, calificacion=comentario['calificacion'])
                         nuevo_comentario.save()
                     messages.success(request, "Empresa guardada correctamente")
                     return redirect('scrapEmpresa')  # Redireccionar a la página ScrapEmpresa

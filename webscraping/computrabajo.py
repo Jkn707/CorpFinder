@@ -42,16 +42,12 @@ def obtenerComentarios(url, limite_paginas=5):
 
         for comentario in comentarios:
             info = comentario.select_one('p.list_dot.fc_aux.mb10').text.strip().replace("\n","").replace("\r","")
-            contenido_tags = comentario.find_all('p', class_='mb10')[-1].contents
+            contenido_tags = comentario.find_all('p', class_='mb10')[1:]
+            texto_lista = [tag.text.replace("\n"," ") for tag in contenido_tags]
 
-            contenido = ""
-            for tag in contenido_tags:
-                if tag.name == "strong":
-                    contenido += f"<strong>{tag.get_text(strip=True)}</strong> "
-                elif tag.name == "span":
-                    contenido += f"{tag.get_text(strip=True)} "
-                else:
-                    contenido += f"{tag.get_text(strip=True)}"
+            contenido = "".join(texto_lista)
+
+            contenido = contenido.lower().capitalize()
 
             # Buscar la ubicación en la segunda parte de la cadena 'info'
             partes = info.split()
@@ -63,11 +59,26 @@ def obtenerComentarios(url, limite_paginas=5):
             elif len(partes) == 7:
                 ubicacion = partes[2] + " " + partes[3] + " " + partes[4]
 
+            #Extraccion de estrellas
+            p = comentario.find_all('p', class_="fs18 posRel")
+            for parrafo in p:
+                estrellas = parrafo.find('span', class_='stars')
+                if estrellas:
+                    estrella_con_estilo = estrellas.find('span', style=True)
+                    if estrella_con_estilo:
+                        estilo = estrella_con_estilo['style']
+                        # Extracción del valor numérico del estilo
+                        valor_numerico = int(estilo.split(":")[1].strip("%;"))
+                        # Ahora puedes realizar la división con este valor
+                        calificacion = valor_numerico // 20
+
+
             # Almacenar los datos del comentario en una estructura de datos adecuada
             datos_comentario = {
                 'ubicacion': ubicacion,
                 'fecha': fecha,
-                'contenido': contenido.strip()
+                'contenido': contenido.strip(),
+                'calificacion': calificacion
             }
 
             comentarios_totales.append(datos_comentario)

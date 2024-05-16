@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from webscraping.models import Empresa, ComentariosComputrabajo, ComentariosPropios
 from .functions import obtenerMesYAño
 from django.utils import timezone
+from django.urls import reverse
 import json
 
 User = get_user_model()
@@ -58,17 +59,30 @@ def detallesEmpresa(request, id):
          nuevo_comentario.save()
    else:
       comentario_form = ComentarioForm()
+   estadistica_url = reverse('estadisticaEmpresa', args=[empresa.id])
+
    return render(request, template_name, {'empresa':empresa,
                                           'comentariosCT':comentariosCT,
                                           'comentariosPropios':comentariosPropios,
                                           'totalComentarios':comentariosCT.count() + comentariosPropios.count(),
                                           'nuevo_comentario':nuevo_comentario,
-                                          'comentario_form':comentario_form})
+                                          'comentario_form':comentario_form,
+                                          'estadistica_url': estadistica_url})
 
-
-   
-    
-
+@login_required(login_url='/iniciarSesion')
+def estadisticaEmpresa(request, id):
+    empresa = get_object_or_404(Empresa, id=id)
+    comentariosCT = ComentariosComputrabajo.objects.filter(empresa_id=empresa.id)
+    comentariosP = ComentariosPropios.objects.filter(empresa_id=empresa.id)
+    # Datos adicionales de la empresa si es necesario
+    datosEmpresa = Empresa.objects.filter(id=empresa.id)
+    # Renderizar la plantilla con el contexto apropiado
+    return render(request, 'estadisticaEmpresa.html', {
+        'comentariosCT': comentariosCT,
+        'comentariosP': comentariosP,
+        'datosEmpresa': datosEmpresa,
+        'empresa': empresa
+    })
 
 def home(request):
    return render(request,'home.html')

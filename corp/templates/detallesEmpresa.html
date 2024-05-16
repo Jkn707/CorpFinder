@@ -9,8 +9,25 @@
             <div class = "containerr">
                 <img class="img" src="{{empresa.logo_empresa}}" alt="">
                 <h1 class="nombre">{{empresa.nombre_empresa}}</h1>
-                <p class="sub">{{empresa.subtitle}}</p>
-                <p class="content">{{empresa.subtitle_content}}</p>
+                {% if empresa.subtitle %}
+                    <p class="sub">{{ empresa.subtitle }}</p>
+                {% else %}
+                     <p></p>
+                {% endif %}
+
+                {% if empresa.subtitle_content %}
+                    <p class="content">{{ empresa.subtitle_content }}</p>
+                {% else %}
+                    <p>Esta empresa no tiene descripcion</p>
+                {% endif %}
+
+                <div class="marcaEmpleadora">
+                    <div class="col-12">
+                        <h2>MARCA EMPLEADORA</h2>
+                        <h3>{{empresa.calificacion_empresa}}</h3>
+                        <a class="masInfo" href="{{ estadistica_url }}">Más información</a>
+                    </div>
+                </div>
             </div>
             <div class="comment">
                 <div class="comment-form">
