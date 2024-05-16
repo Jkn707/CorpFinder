@@ -38,9 +38,6 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
     .then(response => {
         if (response.ok) {
             // Handle successful form submission
-            if (!closed_form){
-                alert("Form submitted successfully!");
-            }
             closed_form = false;
             document.getElementById("popupForm").style.display = "none"; // Hide the form after successful submission
         } else {

@@ -75,7 +75,6 @@ def obtenerComentarios(url, limite_paginas=5):
 
             # Almacenar los datos del comentario en una estructura de datos adecuada
             datos_comentario = {
-                'ubicacion': ubicacion,
                 'fecha': fecha,
                 'contenido': contenido.strip(),
                 'calificacion': calificacion
