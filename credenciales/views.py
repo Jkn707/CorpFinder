@@ -21,13 +21,23 @@ def edit(request):
     user_form = UserForm(instance=request.user)
     credencial = Credenciales.objects.get(usuario=request.user)
     credencial_form = CredencialForm(instance=credencial)
-
+    
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        credencial_form = CredencialForm(request.POST, instance=credencial)
+        credencial_form = CredencialForm(request.POST, request.FILES, instance=credencial)
+        
         if user_form.is_valid() and credencial_form.is_valid():
             user_form.save()
             credencial_form.save()
+            
+            # Verificar si se ha subido una nueva imagen
+            if 'imagen' in request.FILES:
+                credencial.imagen = request.FILES['imagen']
+                credencial.save()
+            
             return redirect('credenciales')  # Redirige a la página de perfil después de guardar los cambios
-
-    return render(request, 'edit.html', {'user_form': user_form, 'credencial_form': credencial_form})
+    
+    return render(request, 'edit.html', {
+        'user_form': user_form,
+        'credencial_form': credencial_form,
+    })

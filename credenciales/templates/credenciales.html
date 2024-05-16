@@ -9,63 +9,72 @@
     <title>Credenciales</title>
 </head>
 <body>
- <div>
-     <h1 class="title">Tus Credenciales</h1>
-     <div class="img-container">
-       <img src="{{ credencial.imagen.url }}" alt="Imagen de perfil">
-       <form action="{% url 'edit' %}">
-        <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
-       </form>      
-     </div>
-     <div class="datos">
-     <h2 class="info">Redes Sociales: 
-        <form action="{% url 'edit' %}">
-            <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
-           </form> 
-     </h2>
-     <p class="info">{{ credencial.redes }}</p>
-    </div>
-    <div class="datos">
-        <h2 class="info">Datos Personales:
+    <div>
+        <h1 class="title">Tus Credenciales</h1>
+        <!-- Contenedor de la imagen de perfil -->
+        <div class="img-container">
+            <!-- Imagen de perfil -->
+            <img src="{{ credencial.imagen.url }}" alt="Imagen de perfil">
+            <!-- Botón para editar imagen de perfil -->
             <form action="{% url 'edit' %}">
                 <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
-               </form> 
-        </h2>
-        <p class="info"> Nombres: {{ cred_usuario.first_name}}</p>
-        <p class="info"> Apellido: {{ cred_usuario.last_name}}</p>
-        <p class="info"> E-mail: {{ cred_usuario.email}}</p>
-    </div>
-    <div class="datos">
-        <h2 class="info">Tu CV 
-            <form action="{% url 'edit' %}">
-                <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
-               </form> 
-        </h2>
-    </div>
-    <div class="empresas_fav">
-        <h2 class="info">Tus Empresas Favoritas </h2>
-    </div>
-    <div class="empresas">
-        {% for Empresa in credencial.empresas_favoritas.all %}
-        <div class="empresa">
-            <div class="uno">
-                <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
-                <h4 class="tipo">Tipo: {{Empresa.tipo}}</h4>
-                <h4 class="ubi">Ubicación: {{Empresa.ubicacion}}</h4>
-                <h4 class="salario">Salario: {{Empresa.salario}}</h4>
-            </div>
-            <div class="dos">
-                <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
-                <h4 class="Desc">Descripción: {{Empresa.descripcion}}</h4>
-                <h4 class="calif">Calificacion: {{Empresa.calificacion}}</h4>
-                <h4 class="redes">Redes sociales: {{Empresa.redes}}</h4>
-                <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
-            </div>
+            </form>
         </div>
-        {% endfor %}
-        
-</div>
- </div>
+        <div class="datos">
+            <h2 class="info">Redes Sociales:
+                <!-- Botón para editar redes sociales -->
+                <form action="{% url 'edit' %}">
+                    <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
+                </form> 
+            </h2>
+            <p class="info">{{ credencial.redes }}</p>
+        </div>
+        <div class="datos">
+            <h2 class="info">Datos Personales:
+                <!-- Botón para editar datos personales -->
+                <form action="{% url 'edit' %}">
+                    <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
+                </form> 
+            </h2>
+            <!-- Información personal del usuario -->
+            <p class="info"> Nombres: {{ cred_usuario.first_name }}</p>
+            <p class="info"> Apellido: {{ cred_usuario.last_name }}</p>
+            <p class="info"> E-mail: {{ cred_usuario.email }}</p>
+        </div>
+        <div class="datos">
+            <h2 class="info">Tu CV
+                <!-- Botón para editar CV -->
+                <form action="{% url 'edit' %}">
+                    <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
+                </form> 
+            </h2>
+        </div>
+        <div class="empresas_fav">
+            <h2 class="info">Tus Empresas Favoritas </h2>
+        </div>
+        <!-- Lista de empresas favoritas -->
+        <div class="empresas">
+            {% for Empresa in credencial.empresas_favoritas.all %}
+            <div class="empresa">
+                <div class="uno">
+                    <!-- Logo de la empresa -->
+                    <img class="imag" src="{{ Empresa.logo_empresa }}" alt="">
+                    <h4 class="tipo">Tipo: {{ Empresa.tipo }}</h4>
+                    <h4 class="ubi">Ubicación: {{ Empresa.ubicacion }}</h4>
+                    <h4 class="salario">Salario: {{ Empresa.salario }}</h4>
+                </div>
+                <div class="dos">
+                    <!-- Detalles de la empresa -->
+                    <h3 class="nombre">{{ Empresa.nombre_empresa }}</h3>
+                    <h4 class="Desc">Descripción: {{ Empresa.descripcion }}</h4>
+                    <h4 class="calif">Calificacion: {{ Empresa.calificacion }}</h4>
+                    <h4 class="redes">Redes sociales: {{ Empresa.redes }}</h4>
+                    <!-- Enlace a los detalles de la empresa -->
+                    <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </body>
-
-{% endblock content %}
+{% endblock %}
