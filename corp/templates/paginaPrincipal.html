@@ -11,27 +11,40 @@
                     <label for="buscarEmpresa" class="form-label">
                         Buscar Empresa:
                     </label>
-                    <input type="text" class="form-control" name="buscarEmpresa">
+                    <input type="text" class="form-control" name="buscarEmpresa" value="{{ searchTerm|default:'' }}">
                 </div>
             </form>
-            <p class="buscando">Buscando para {{searchTerm}}</p>
-                <div class="empresas">
+            {% if searchTerm %}
+                <p class="buscando">Buscando para "{{ searchTerm }}"</p>
+            {% endif %}
+            
+            <div class="empresas">
+                {% if empresas %}
                     {% for Empresa in empresas %}
                     <div class="empresa">
                         <div class="uno">
-                            <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
+                            <img class="imag" src="{{ Empresa.logo_empresa }}" alt="">
                         </div>
                         <div class="dos">
-                            <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
-                            <p class="Desc">{{Empresa.subtitle2_content}}</p>
+                            <h3 class="nombre">{{ Empresa.nombre_empresa }}</h3>
+                            {% if Empresa.subtitle2_content%}
+                            <p class="Desc">{{ Empresa.subtitle2_content }}</p>
+                            {%else%}
+                            <p class="alert alert-warning">Esta empresa no tiene descripcion</p>
+                            {% endif %}
                             <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
                         </div>
                     </div>
                     {% endfor %}
+                {% else %}
+                    {% if searchTerm %}
+                        <div class="alert alert-warning" role="alert">
+                            No se encontraron resultados para tu búsqueda.
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
 </body>
-    
-
 {% endblock content %}

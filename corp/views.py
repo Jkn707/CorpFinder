@@ -23,7 +23,7 @@ def paginaPrincipal(request):
    searchTerm = request.GET.get('buscarEmpresa')
    usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
    if searchTerm:
-      empresas = Empresa.objects.filter(nombre_empresagi__icontains=searchTerm)
+      empresas = Empresa.objects.filter(nombre_empresa__icontains=searchTerm)
    else:
       empresas = Empresa.objects.all()
    return render(request,'paginaPrincipal.html',{'searchTerm':searchTerm, 'empresas':empresas, 'usuario_actual': usuario_actual})
