@@ -18,4 +18,7 @@ class ComentarioForm(forms.ModelForm):
     class Meta:
         model = ComentariosPropios
         fields = ('contenido', 'calificacion')
+        widgets = {
+            'calificacion': forms.NumberInput(attrs={'min': '0', 'max': '5'}),
+        }
 
