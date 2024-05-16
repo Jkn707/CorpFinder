@@ -8,6 +8,7 @@ from webscraping.models import Empresa, ComentariosComputrabajo, ComentariosProp
 from .functions import obtenerMesYAño
 from django.utils import timezone
 from django.urls import reverse
+from credenciales.models import Credenciales
 import json
 
 User = get_user_model()
@@ -20,11 +21,12 @@ def paginaPrincipal(request):
    # return render(request, 'home.html')
    #  return render(request, 'home.html',{'name': 'Paola Noreña'})
    searchTerm = request.GET.get('buscarEmpresa')
+   usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
    if searchTerm:
       empresas = Empresa.objects.filter(nombre_empresagi__icontains=searchTerm)
    else:
       empresas = Empresa.objects.all()
-   return render(request,'paginaPrincipal.html',{'searchTerm':searchTerm, 'empresas':empresas})
+   return render(request,'paginaPrincipal.html',{'searchTerm':searchTerm, 'empresas':empresas, 'usuario_actual': usuario_actual})
 
 
 @login_required(login_url='/iniciarSesion')

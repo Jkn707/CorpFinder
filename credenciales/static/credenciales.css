@@ -45,3 +45,7 @@ form {
     border: none; /* Elimina cualquier borde que el formulario pueda tener por defecto */
     background: none; /* Elimina cualquier fondo que el formulario pueda tener por defecto */
 }
+
+.imagenUser{
+    width: 10%;
+}

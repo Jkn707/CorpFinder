@@ -14,7 +14,7 @@
         <!-- Contenedor de la imagen de perfil -->
         <div class="img-container">
             <!-- Imagen de perfil -->
-            <img src="{{ credencial.imagen.url }}" alt="Imagen de perfil">
+            <img class="imagenUser" src="{{ credencial.imagen.url }}" alt="Imagen de perfil">
             <!-- Botón para editar imagen de perfil -->
             <form action="{% url 'edit' %}">
                 <button class="boton"><img src="/media/credenciales/images/edit.png" alt=""></button> 
