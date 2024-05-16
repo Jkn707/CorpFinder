@@ -4,47 +4,48 @@
 <link rel="stylesheet" href="{% static 'detallesEmpresa.css' %}">
 
 <body>
-    <div class = "container">
-        <div class = "row">
-            <div class = "col-12">
-                <img src="{{empresa.logo_empresa}}" alt="">
+    <div class="contenedor">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-12">
+                    <img src="{{empresa.logo_empresa}}" alt="">
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-12">
+                    <h1>{{empresa.nombre_empresa}}</h1>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-12">
+                    <p>{{empresa.subtitle}}</p>
+                    <p>{{empresa.subtitle_content}}</p>
+                </div>
             </div>
         </div>
-        <div class = "row">
-            <div class = "col-12">
-                <h1>{{empresa.nombre_empresa}}</h1>
-            </div>
-        </div>
-        <div class = "row">
-            <div class = "col-12">
-                <p>{{empresa.subtitle}}</p>
-                <p>{{empresa.subtitle_content}}</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="comment-form">
-        <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
-        Agrega comentario
-        <div id = "popupForm" class = "popup">
-            <form method="post" id="myForm" class="popup-content">
-                {% csrf_token %}
-                {{ comentario_form.as_p }}
-                <button type="submit">Enviar</button>
-            </form>
+        <div class="comment-form">
+            <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
+            Agrega comentario
+            <div id = "popupForm" class = "popup">
+                <form method="post" id="myForm" class="popup-content">
+                    {% csrf_token %}
+                    {{ comentario_form.as_p }}
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+            <script src="{% static 'detallesEmpresa.js' %}"></script>
         </div>
-        <script src="{% static 'detallesEmpresa.js' %}"></script>
-    </div>
 
-    <div class="col-md-8 card mb-4 mt-3">
-        <div class="card-body">
-            <!-- comments -->
-            <h2>{{ totalComentarios }} comentarios</h2>
-            {% for comment in comentariosPropios %}
-                <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold">
-                        {{ comment.autor }}
-                        <span class="text-muted font-weight-normal">
+        <div class="col-md-8 card mb-4 mt-3">
+            <div class="card-body">
+                <!-- comments -->
+                <h2>{{ totalComentarios }} comentarios</h2>
+                {% for comment in comentariosPropios %}
+                    <div class="comments" style="padding: 10px;">
+                        <p class="font-weight-bold">
+                            {{ comment.autor }}
+                            <span class="text-muted font-weight-normal">
                             {{ comment.fecha }} 
                         </span>
                     </p>
@@ -58,14 +59,15 @@
                     <p class="font-weight-bold">
                         {{ comment.autor }}
                         <span class="text-muted font-weight-normal">
-                            Desde {{ comment.ubicacion}} en {{ comment.fecha }}
-                        </span>
-                    </p>
-                    <p>
-                        {{ comment.contenido | linebreaks }}
-                    </p>
-                </div>
-            {% endfor %} 
+                                Desde {{ comment.ubicacion}} en {{ comment.fecha }}
+                            </span>
+                        </p>
+                        <p>
+                            {{ comment.contenido | linebreaks }}
+                        </p>
+                    </div>
+                {% endfor %} 
+            </div>
         </div>
     </div>
 </body>

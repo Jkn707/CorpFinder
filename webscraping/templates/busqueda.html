@@ -1,19 +1,18 @@
 {% extends 'base3.html' %}
-
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>scrap</title>
-</head>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'busqueda.css' %}">
+<title>scrap</title>
+
 <body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Buscar</button>
-    </form>
+    <div class="contenedor">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn" type="submit">Buscar</button>
+        </form>
+    </div>
 </body>
 </html>
 {% endblock %}

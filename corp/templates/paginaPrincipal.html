@@ -4,37 +4,36 @@
 <link rel="stylesheet" href="{% static 'paginaPrincipal.css' %}">
 
 <body>
-    <div class="contenedor">
-        <div class="perfil">
-            <a href="/perfil">Tu perfil</a>
-        </div>
-        <form class="busqueda" action="">
-            <div class="mb-3">
-                <label for="buscarEmpresa" class="form-label">
-                    Buscar Empresa:
-                </label>
-                <input type="text" class="form-control" name="buscarEmpresa">
-            </div>
-        </form>
-        <p class="buscando">Buscando para {{searchTerm}}</p>
-            <div class="empresas">
-                {% for Empresa in empresas %}
-                <div class="empresa">
-                    <div class="uno">
-                        <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
-                        <h4 class="tipo">Tipo: {{Empresa.tipo}}</h4>
-                        <h4 class="ubi">Ubicación: {{Empresa.ubicacion}}</h4>
-                        <h4 class="salario">Salario: {{Empresa.salario}}</h4>
-                    </div>
-                    <div class="dos">
-                        <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
-                        <h4 class="Desc">Descripción: {{Empresa.descripcion}}</h4>
-                        <h4 class="calif">Calificacion: {{Empresa.calificacion}}</h4>
-                        <h4 class="redes">Redes sociales: {{Empresa.redes}}</h4>
-                        <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
-                    </div>
+    <div class="contain">
+        <div class="contenedor">
+            <form class="busqueda" action="">
+                <div class="mb-3">
+                    <label for="buscarEmpresa" class="form-label">
+                        Buscar Empresa:
+                    </label>
+                    <input type="text" class="form-control" name="buscarEmpresa">
                 </div>
-                {% endfor %}
+            </form>
+            <p class="buscando">Buscando para {{searchTerm}}</p>
+                <div class="empresas">
+                    {% for Empresa in empresas %}
+                    <div class="empresa">
+                        <div class="uno">
+                            <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
+                            <h4 class="tipo">Tipo: {{Empresa.tipo}}</h4>
+                            <h4 class="ubi">Ubicación: {{Empresa.ubicacion}}</h4>
+                            <h4 class="salario">Salario: {{Empresa.salario}}</h4>
+                        </div>
+                        <div class="dos">
+                            <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
+                            <h4 class="Desc">Descripción: {{Empresa.descripcion}}</h4>
+                            <h4 class="calif">Calificacion: {{Empresa.calificacion}}</h4>
+                            <h4 class="redes">Redes sociales: {{Empresa.redes}}</h4>
+                            <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
         </div>
     </div>
 </body>
