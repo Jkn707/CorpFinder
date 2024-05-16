@@ -1,6 +1,49 @@
 .contenedor {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.contain {
+    overflow-y: scroll;
+}
+
+.contain::-webkit-scrollbar{
+    display: none;
+}
+
+.containerr {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.img {
+   height: 15%;
+   width: 20%;
+    margin: 2% 0% 2% 35%;
+}
+
+.nombre {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.sub {
+    margin-top: 1%;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.content {
+    font-size: 1.3em;
+    width: 90%;
+ 
 }
 
 .popup {
@@ -43,3 +86,130 @@
 .popup-content button:hover {
     background-color: #45a049;
 }
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    
+}
+
+.comentarios{
+    border: none;
+    width: 90%;
+}
+
+
+.comentario {
+    border: none;
+    background-color: #5489DC;
+    border-radius: 25px;
+    height: 40%;
+    width: 100%;
+    margin: 2% 0% 2% 0%;
+    padding: 1% 1% 0% 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.numcomentarios{
+    background-color: white;
+    font-weight: bold;
+    padding: 1%;
+    margin-bottom: 1%;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 1.7em;
+}
+
+.comments {
+    background-color: white;
+    padding: 1%;
+    border-radius: 25px;
+    margin-bottom: 1%;
+}
+
+.usuario {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.fecha {
+    font-weight: lighter;
+    font-size: 0.8em;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+
+
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    
+}
+
+.comentarios{
+    border: none;
+    width: 90%;
+}
+
+
+.comentario {
+    border: none;
+    background-color: #5489DC;
+    border-radius: 25px;
+    height: 40%;
+    width: 100%;
+    margin: 2% 0% 2% 0%;
+    padding: 1% 1% 0% 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.numcomentarios{
+    background-color: white;
+    font-weight: bold;
+    padding: 1%;
+    margin-bottom: 1%;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 1.7em;
+}
+
+.comments {
+    background-color: white;
+    padding: 1%;
+    border-radius: 25px;
+    margin-bottom: 1%;
+}
+
+.usuario {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.fecha {
+    font-weight: lighter;
+    font-size: 0.8em;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+
+
+
+.masInfo{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+

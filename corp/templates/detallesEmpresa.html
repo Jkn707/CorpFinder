@@ -5,69 +5,74 @@
 
 <body>
     <div class="contenedor">
-        <div class = "container">
-            <div class = "row">
-                <div class = "col-12">
-                    <img src="{{empresa.logo_empresa}}" alt="">
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-12">
-                    <h1>{{empresa.nombre_empresa}}</h1>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-12">
-                    <p>{{empresa.subtitle}}</p>
-                    <p>{{empresa.subtitle_content}}</p>
-                </div>
-            </div>
-        </div>
+        <div class="contain">
+            <div class = "containerr">
+                <img class="img" src="{{empresa.logo_empresa}}" alt="">
+                <h1 class="nombre">{{empresa.nombre_empresa}}</h1>
+                {% if empresa.subtitle %}
+                    <p class="sub">{{ empresa.subtitle }}</p>
+                {% else %}
+                     <p></p>
+                {% endif %}
 
-        <div class="comment-form">
-            <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
-            Agrega comentario
-            <div id = "popupForm" class = "popup">
-                <form method="post" id="myForm" class="popup-content">
-                    <button id = "closeFormBtn">X</button>
-                    {% csrf_token %}
-                    {{ comentario_form.as_p }}
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
-            <script src="{% static 'detallesEmpresa.js' %}"></script>
-        </div>
+                {% if empresa.subtitle_content %}
+                    <p class="content">{{ empresa.subtitle_content }}</p>
+                {% else %}
+                    <p>Esta empresa no tiene descripcion</p>
+                {% endif %}
 
-        <div class="col-md-8 card mb-4 mt-3">
-            <div class="card-body">
-                <!-- comments -->
-                <h2>{{ totalComentarios }} comentarios</h2>
-                {% for comment in comentariosPropios %}
-                    <div class="comments" style="padding: 10px;">
-                        <p class="font-weight-bold">
-                            {{ comment.autor }}
-                            <span class="text-muted font-weight-normal">
-                            {{ comment.fecha }} 
-                        </span>
-                    </p>
-                    <p>
-                        {{ comment.contenido | linebreaks }}
-                    </p>
+                <div class="marcaEmpleadora">
+                    <div class="col-12">
+                        <h2>MARCA EMPLEADORA</h2>
+                        <h3>{{empresa.calificacion_empresa}}</h3>
+                        <a class="masInfo" href="{{ estadistica_url }}">Más información</a>
+                    </div>
                 </div>
-            {% endfor %}
-            {% for comment in comentariosCT %}
-                <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold">
-                        {{ comment.autor }}
-                        <span class="text-muted font-weight-normal">
-                            Desde {{ comment.ubicacion}} en {{ comment.fecha }}
-                        </span>
-                    </p>
-                    <p>
-                        {{ comment.contenido | linebreaks }}
-                    </p>
+            </div>
+            <div class="comment">
+                <div class="comment-form">
+                    <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
+                    Agrega comentarios
+                    <div id = "popupForm" class = "popup">
+                        <form method="post" id="myForm" class="popup-content">
+                            {% csrf_token %}
+                            {{ comentario_form.as_p }}
+                            <button type="submit">Enviar</button>
+                        </form>
+                    </div>
+                    <script src="{% static 'detallesEmpresa.js' %}"></script>
                 </div>
-                {% endfor %} 
+                <div class="comentarios">
+                    <div class="comentario">
+                        <!-- comments -->
+                        <h2 class="numcomentarios">{{ totalComentarios }} comentarios</h2>
+                        {% for comment in comentariosPropios %}
+                            <div class="comments">
+                                <p class="usuario">
+                                    {{ comment.autor }}
+                                    <span class="fecha">
+                                    {{ comment.fecha }} 
+                                </span>
+                            </p>
+                            <p class="cont">
+                                {{ comment.contenido | linebreaks }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                    {% for comment in comentariosCT %}
+                        <div class="comments" >
+                            <p class="usuario"> {{ comment.autor }}
+                                <span class="fecha">
+                                        Desde {{ comment.ubicacion }} en {{ comment.fecha }}
+                                </span>
+                            </p>
+                            <p class="cont">
+                                {{ comment.contenido | linebreaks }}
+                            </p>
+                        </div>
+                        {% endfor %} 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
