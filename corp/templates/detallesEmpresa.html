@@ -29,6 +29,7 @@
             Agrega comentario
             <div id = "popupForm" class = "popup">
                 <form method="post" id="myForm" class="popup-content">
+                    <button id = "closeFormBtn">X</button>
                     {% csrf_token %}
                     {{ comentario_form.as_p }}
                     <button type="submit">Enviar</button>
@@ -59,13 +60,13 @@
                     <p class="font-weight-bold">
                         {{ comment.autor }}
                         <span class="text-muted font-weight-normal">
-                                Desde {{ comment.ubicacion}} en {{ comment.fecha }}
-                            </span>
-                        </p>
-                        <p>
-                            {{ comment.contenido | linebreaks }}
-                        </p>
-                    </div>
+                            Desde {{ comment.ubicacion}} en {{ comment.fecha }}
+                        </span>
+                    </p>
+                    <p>
+                        {{ comment.contenido | linebreaks }}
+                    </p>
+                </div>
                 {% endfor %} 
             </div>
         </div>

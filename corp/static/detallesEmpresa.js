@@ -1,5 +1,12 @@
+let closed_form = false;
+
 document.getElementById("openFormBtn").addEventListener("click", function() {
     document.getElementById("popupForm").style.display = "block";
+});
+
+document.getElementById("closeFormBtn").addEventListener("click", function() {
+    document.getElementById("popupForm").style.display = "none";
+    closed_form = true;
 });
 
 document.getElementById("myForm").addEventListener("submit", function(event) {
@@ -31,10 +38,14 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
     .then(response => {
         if (response.ok) {
             // Handle successful form submission
-            alert("Form submitted successfully!");
+            if (!closed_form){
+                alert("Form submitted successfully!");
+            }
+            closed_form = false;
             document.getElementById("popupForm").style.display = "none"; // Hide the form after successful submission
         } else {
             // Handle error response from server
+            closed_form = false;
             alert("Error submitting form. Please try again.");
         }
     })
