@@ -20,15 +20,10 @@
                     <div class="empresa">
                         <div class="uno">
                             <img class="imag" src="{{Empresa.logo_empresa}}" alt="">
-                            <h4 class="tipo">Tipo: {{Empresa.tipo}}</h4>
-                            <h4 class="ubi">Ubicación: {{Empresa.ubicacion}}</h4>
-                            <h4 class="salario">Salario: {{Empresa.salario}}</h4>
                         </div>
                         <div class="dos">
                             <h3 class="nombre">{{Empresa.nombre_empresa}}</h3>
-                            <h4 class="Desc">Descripción: {{Empresa.descripcion}}</h4>
-                            <h4 class="calif">Calificacion: {{Empresa.calificacion}}</h4>
-                            <h4 class="redes">Redes sociales: {{Empresa.redes}}</h4>
+                            <p class="Desc">{{Empresa.subtitle2_content}}</p>
                             <a href="{% url 'detallesEmpresa' Empresa.id %}" class="btn btn-primary btn-sm">Detalles</a>
                         </div>
                     </div>
