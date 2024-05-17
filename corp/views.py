@@ -67,6 +67,16 @@ def detallesEmpresa(request, id):
         'usuario_actual': usuario_actual
     })
 
+def borrar_comentario(request, id):
+    comentario = get_object_or_404(ComentariosComputrabajo, id=id)
+    comentario.delete()
+    return redirect('detallesEmpresa', id=comentario.empresa.id)
+
+def borrar_comentario_p(request, id):
+    comentario_p = get_object_or_404(ComentariosPropios, id=id)
+    comentario_p.delete()
+    return redirect('detallesEmpresa', id=comentario_p.empresa.id)
+
 @login_required(login_url='/iniciarSesion')
 def estadisticaEmpresa(request, id):
     empresa = get_object_or_404(Empresa, id=id)
@@ -81,6 +91,7 @@ def estadisticaEmpresa(request, id):
         'empresa': empresa,
         'usuario_actual': usuario_actual
     })
+    
 
 def home(request):
     return render(request, 'home.html')

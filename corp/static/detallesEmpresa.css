@@ -185,6 +185,9 @@ p {
     padding: 1%;
     border-radius: 25px;
     margin-bottom: 1%;
+    display: flex;
+    align-items: flex-start; /* Alinea los elementos hijos al inicio en el eje vertical */
+    gap: 10px; /* Espacio entre los elementos hijos */
 }
 
 .usuario {
@@ -208,3 +211,45 @@ p {
     height: 50px;
 }
 
+.comments {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid black; /* Solo para visualización */
+}
+
+.one {
+    flex-grow: 1;
+}
+
+.two {
+    display: flex;
+    align-items: center;
+}
+
+.boton_p {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    left: 1279px;
+}
+
+.boton {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    top: 160px;
+}
+
+.boton_p img {
+    width: 40x; 
+    height: 40px; 
+}
+
+.boton img {
+    width: 40x; 
+    height: 40px; 
+}
