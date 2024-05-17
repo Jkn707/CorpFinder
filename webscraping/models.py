@@ -56,6 +56,7 @@ class ComentariosComputrabajo(models.Model):
     calificacion = models.IntegerField(default=0, null=True, blank=True)
     sentimiento = models.CharField(max_length=255, blank=True, null=True)
     autor = models.CharField(max_length=255, blank=True, default="Anónimo")
+    reportes = models.IntegerField(default=0, null=True)
 
 class ComentariosPropios(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='comentarios_propios')
@@ -64,6 +65,7 @@ class ComentariosPropios(models.Model):
     calificacion = models.IntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)])
     sentimiento = models.CharField(max_length=255, blank=True, null=True)
     autor = models.CharField(max_length=255, blank=True, default="Anónimo")
+    reportes = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return 'Comentario de {} sobre {}'.format(self.autor, self.empresa.nombre_empresa)

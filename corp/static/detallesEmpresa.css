@@ -192,11 +192,17 @@ p {
     padding: 1%;
     border-radius: 25px;
     margin-bottom: 1%;
+    display: flex;
+    align-items: flex-start; /* Alinea los elementos hijos al inicio en el eje vertical */
+    gap: 10px; /* Espacio entre los elementos hijos */
 }
 
 .usuario {
     font-weight: bold;
     font-size: 1.5em;
+    display: inline;
+    position: relative;
+    right: 3%;
 }
 
 .fecha {
@@ -215,3 +221,85 @@ p {
     height: 50px;
 }
 
+.botonReporte {
+    background-color: #5489DC;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+}
+
+.reporteForm {
+    position: relative;
+    left: 90%;
+}
+
+.botonReporte img {
+    height: 25px;
+    width: 25px;
+}
+
+.botonReporte {
+    background-color: #5489DC;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+}
+
+.reporteForm {
+    position: relative;
+    left: 90%;
+}
+
+.botonReporte img {
+    height: 25px;
+    width: 25px;
+}
+
+.comments {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid black; /* Solo para visualización */
+}
+
+.one {
+    flex-grow: 1;
+}
+
+.two {
+    display: flex;
+    align-items: center;
+}
+
+.boton_p {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    left: 1279px;
+}
+
+.boton {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    top: 160px;
+}
+
+.boton_p img {
+    width: 40x; 
+    height: 40px; 
+}
+
+.boton img {
+    width: 40x; 
+    height: 40px; 
+}
