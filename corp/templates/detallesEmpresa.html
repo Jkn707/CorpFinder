@@ -70,6 +70,15 @@
                             <p class="cont">
                                 {{ comment.contenido | linebreaks }}
                             </p>
+                            {% if comment.sentimiento == "Positivo" %}
+                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
+                            {% elif comment.sentimiento  == "Negativo"%}
+                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
+                            {% elif comment.sentimiento  == "Neutral"%}
+                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
+                            {% else %}
+                                <p class="emocion">Emocion: comment.sentimiento </p>
+                            {% endif %}
                         </div>
                         {% endfor %} 
                     </div>

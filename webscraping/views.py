@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import NombreEmpresa
 from .computrabajo import buscarEmpresas, obtenerDatosEmpresa, obtenerComentarios
+from .nlp import obtenerEmociones
 from .models import Empresa, ComentariosComputrabajo
 
 def scrapEmpresa(request):
@@ -41,7 +42,8 @@ def resultadoEmpresa(request):
                     nueva_empresa = Empresa(**datos_empresa)
                     nueva_empresa.save()
                     for comentario in comentarios:
-                        nuevo_comentario = ComentariosComputrabajo(ubicacion=comentario['ubicacion'], fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa, calificacion=comentario['calificacion'])
+                        emocion = obtenerEmociones(comentario)
+                        nuevo_comentario = ComentariosComputrabajo(ubicacion=comentario['ubicacion'], fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa, calificacion=comentario['calificacion'], sentimiento = emocion)
                         nuevo_comentario.save()
                     messages.success(request, "Empresa guardada correctamente")
                     return redirect('scrapEmpresa')  # Redireccionar a la página ScrapEmpresa

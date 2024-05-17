@@ -144,9 +144,6 @@ p {
     font-size: 1.5em;
 }
 
-
-
-
 .comment {
     display: flex;
     flex-direction: column;
@@ -200,16 +197,14 @@ p {
     font-size: 0.8em;
 }
 
-p {
-    font-size: 1.5em;
-}
-
-
-
 
 .masInfo{
     text-decoration: none;
     color: black;
     font-weight: bold;
+}
+
+.imgemocion {
+    height: 50px;
 }
 
