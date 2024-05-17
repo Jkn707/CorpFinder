@@ -52,10 +52,26 @@
                                 <p class="cont">
                                     {{ comment.contenido | linebreaks }}
                                 </p>
-                                <p hidden class="calificacion">
-                                    {{ comment.calificacion }}
-                                </p>
+                                <p hidden class="calificacion">{{ comment.calificacion }}</p>
                                 <p class="rating-{{ forloop.counter }}"></p>
+                                {% if comment.sentimiento == "Positivo" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
+                                {% elif comment.sentimiento == "Negativo" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
+                                {% elif comment.sentimiento == "Neutral" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
+                                {% else %}
+                                    <p class="emocion">Emoción: {{ comment.sentimiento }}</p>
+                                {% endif %}
+                                <p class="rating-{{ forloop.counter }}"></p>-
+                                {% if user.is_authenticated %}
+                                    {% if user.is_staff %}
+                                        <form class="borrarcom" method="post" action="{% url 'borrar_comentario_p' comment.id %}">
+                                            {% csrf_token %}
+                                            <button class="boton"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
                             </div>
                         {% endfor %}
                         {% for comment in comentariosCT %}
