@@ -68,6 +68,38 @@ def detallesEmpresa(request, id):
     })
 
 @login_required(login_url='/iniciarSesion')
+def detallesEmpresaEmpresa(request, id):
+    template_name = 'detallesEmpresaEmpresa.html'
+    usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
+    empresa = get_object_or_404(Empresa, id=id)
+    comentariosCT = ComentariosComputrabajo.objects.filter(empresa_id=empresa.id)
+    comentariosPropios = ComentariosPropios.objects.filter(empresa_id=empresa.id)
+    nuevo_comentario = None
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        dict_data = {'contenido': json_data['contenido'], 'calificacion': json_data['calificacion']}
+        comentario_form = ComentarioForm(dict_data)
+        if comentario_form.is_valid():
+            nuevo_comentario = comentario_form.save(commit=False)
+            nuevo_comentario.empresa = empresa
+            nuevo_comentario.fecha = obtenerMesYAño(timezone.now())
+            nuevo_comentario.autor = usuario_actual.usuario.username
+            nuevo_comentario.save()
+    else:
+        comentario_form = ComentarioForm()
+    estadistica_url = reverse('estadisticaEmpresa', args=[empresa.id])
+    return render(request, template_name, {
+        'empresa': empresa,
+        'comentariosCT': comentariosCT,
+        'comentariosPropios': comentariosPropios,
+        'totalComentarios': comentariosCT.count() + comentariosPropios.count(),
+        'nuevo_comentario': nuevo_comentario,
+        'comentario_form': comentario_form,
+        'estadistica_url': estadistica_url,
+        'usuario_actual': usuario_actual
+    })
+
+@login_required(login_url='/iniciarSesion')
 def estadisticaEmpresa(request, id):
     empresa = get_object_or_404(Empresa, id=id)
     usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)

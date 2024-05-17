@@ -10,6 +10,7 @@ urlpatterns = [
     path('registrarse/', views.registrarse, name='registrarse'),
     path('logout/', views.logout_, name='logout'),
     path('detalles/<int:id>/', views.detallesEmpresa, name='detallesEmpresa'),
+    path('detallesEmpresas/<int:id>/', views.detallesEmpresaEmpresa, name='detallesEmpresaEmpresa'),
     path('detalles/estadisticaEmpresa/<int:id>', views.estadisticaEmpresa, name='estadisticaEmpresa'),
     path('credenciales/', include('credenciales.urls')),
 ]

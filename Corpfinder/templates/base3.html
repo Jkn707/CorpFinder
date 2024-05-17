@@ -14,9 +14,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'scrapEmpresa' %}">Empresa</a>
-          </li>
+          {% if user.is_authenticated %}
+            {% if user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'scrapEmpresa' %}">Empresa</a>
+              </li>
+            {% endif %}
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'credenciales' %}">Credenciales</a>
           </li>

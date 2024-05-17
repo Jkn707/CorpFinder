@@ -49,6 +49,8 @@
 .popup {
     display: none;
     position: fixed;
+    border-radius: 15px;
+    border: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -67,6 +69,10 @@
     margin-bottom: 10px;
 }
 
+#id_contenido {
+    border-radius: 15px;
+}
+
 .popup-content input[type="text"],
 .popup-content input[type="email"],
 .popup-content button {
@@ -77,14 +83,15 @@
 }
 
 .popup-content button {
-    background-color: #4CAF50;
+    background-color: #5489DC;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 15px;
 }
 
 .popup-content button:hover {
-    background-color: #45a049;
+    background-color: #6799e9;
 }
 
 .comment {
