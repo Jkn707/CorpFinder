@@ -37,14 +37,20 @@ def resultadoEmpresa(request):
         if selected_empresa:
             if opciones:
                 datos_empresa = obtenerDatosEmpresa(opciones[selected_empresa])
-                comentarios = obtenerComentarios(opciones[selected_empresa], limite_paginas=5)
+                try:
+                    comentarios = obtenerComentarios(opciones[selected_empresa], limite_paginas=5)
+                except:
+                    pass
                 if datos_empresa:
                     nueva_empresa = Empresa(**datos_empresa)
                     nueva_empresa.save()
-                    for comentario in comentarios:
-                        emocion = obtenerEmociones(comentario)
-                        nuevo_comentario = ComentariosComputrabajo(fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa, calificacion=comentario['calificacion'], sentimiento = emocion)
-                        nuevo_comentario.save()
+                    try:
+                        for comentario in comentarios:
+                            emocion = obtenerEmociones(comentario)
+                            nuevo_comentario = ComentariosComputrabajo(fecha=comentario['fecha'], contenido=comentario['contenido'], empresa=nueva_empresa, calificacion=comentario['calificacion'], sentimiento = emocion)
+                            nuevo_comentario.save()
+                    except:
+                        pass
                     messages.success(request, "Empresa guardada correctamente")
                     return redirect('scrapEmpresa')  # Redireccionar a la página ScrapEmpresa
                 else:
