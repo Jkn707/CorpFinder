@@ -49,6 +49,10 @@
                         <h2 class="numcomentarios">{{ totalComentarios }} comentarios</h2>
                         {% for comment in comentariosPropios %}
                             <div class="comments">
+                                <form class = "reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
+                                    {% csrf_token %}
+                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button> 
+                                </form> 
                                 <p class="usuario">
                                     {{ comment.autor }}
                                     <span class="fecha">
@@ -68,11 +72,15 @@
                         {% endfor %}
                         {% for comment in comentariosCT %}
                             <div class="comments" >
+                                <form class = "reporteForm" method="post" action="{% url 'reportarComentarioCT' comment.id %}">
+                                    {% csrf_token %}
+                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button> 
+                                </form> 
                                 <p class="usuario"> {{ comment.autor }}
                                      <span class="fecha">
                                         en {{ comment.fecha }}
                                     </span>
-                                </p>
+                                </p> 
                                 <p class="cont">
                                     {{ comment.contenido | linebreaks }}
                                 </p>
