@@ -13,13 +13,14 @@ from django.contrib.auth import update_session_auth_hash
 
 @login_required(login_url='/iniciarSesion')
 def credenciales(request):
-   
+   usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
    credencial = Credenciales.objects.get(usuario=request.user)
    usuario = credencial.usuario
 
-   return render(request,'credenciales.html',{'cred_usuario': usuario,'credencial': credencial})
+   return render(request,'credenciales.html',{'cred_usuario': usuario,'credencial': credencial, 'usuario_actual': usuario_actual})
 
 def edit(request):
+    usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
     user_form = UserForm(instance=request.user)
     credencial = Credenciales.objects.get(usuario=request.user)
     credencial_form = CredencialForm(instance=credencial)
@@ -51,6 +52,7 @@ def edit(request):
     return render(request, 'edit.html', {
         'user_form': user_form,
         'credencial_form': credencial_form,
+        'usuario_actual': usuario_actual,
     })
 
 def agregar_empresa_fav(request,id): 

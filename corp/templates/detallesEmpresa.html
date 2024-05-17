@@ -2,40 +2,39 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'detallesEmpresa.css' %}">
+<title>Detalles Empresa</title>
 
 <body>
     <div class="contenedor">
         <div class="contain">
-            <div class = "containerr">
-                <img class="img" src="{{empresa.logo_empresa}}" alt="">
-                <h1 class="nombre">{{empresa.nombre_empresa}}</h1>
+            <div class="containerr">
+                <img class="img" src="{{ empresa.logo_empresa }}" alt="">
+                <h1 class="nombre">{{ empresa.nombre_empresa }}</h1>
                 {% if empresa.subtitle %}
                     <p class="sub">{{ empresa.subtitle }}</p>
                 {% else %}
-                     <p></p>
+                    <p></p>
                 {% endif %}
-
                 {% if empresa.subtitle_content %}
                     <p class="content">{{ empresa.subtitle_content }}</p>
                 {% else %}
                     <p class="alert alert-warning">Esta empresa no tiene descripcion</p>
                 {% endif %}
-
                 <div class="marcaEmpleadora">
                     <div class="col-12">
                         <h2>MARCA EMPLEADORA</h2>
-                        <h3>{{empresa.calificacion_empresa}}</h3>
+                        <h3>{{ empresa.calificacion_empresa }}</h3>
                         <a class="masInfo" href="{{ estadistica_url }}">Más información</a>
                     </div>
                 </div>
             </div>
             <div class="comment">
                 <div class="comment-form">
-                    <button id = "openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
+                    <button id="openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
                     Agrega comentarios
-                    <div id = "popupForm" class = "popup">
+                    <div id="popupForm" class="popup">
                         <form method="post" id="myForm" class="popup-content">
-                            <button id = "closeFormBtn">X</button>
+                            <button id="closeFormBtn">X</button>
                             {% csrf_token %}
                             {{ comentario_form.as_p }}
                             <button type="submit">Enviar</button>
@@ -45,10 +44,10 @@
                 </div>
                 <div class="comentarios">
                     <div class="comentario">
-                        <!-- comments -->
                         <h2 class="numcomentarios">{{ totalComentarios }} comentarios</h2>
                         {% for comment in comentariosPropios %}
                             <div class="comments">
+                                <div class="one">
                                 <form class = "reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
                                     {% csrf_token %}
                                     <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button> 
@@ -100,43 +99,81 @@
                                 <p class="emocion">Emocion: comment.sentimiento </p>
                             {% endif %}
                         </div>
-                        {% endfor %} 
+                                {% if user.is_authenticated %}
+                                     {% if user.is_staff %}
+                                <div class="two">
+                                    <form method="post" action="{% url 'borrar_comentario_p' comment.id %}">
+                                        {% csrf_token %}
+                                        <button class="boton_p"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                                     {% endif %}
+                                
+                                
+                            </div>
+                        {% endfor %}
+                        {% for comment in comentariosCT %}
+                            <div class="comments">
+                                <div class="one">
+                                    <p class="usuario">{{ comment.autor }}
+                                        <span class="fecha">en {{ comment.fecha }}</span>
+                                    </p>
+                                    <p class="cont">
+                                        {{ comment.contenido | linebreaks }}
+                                    </p>
+                                    <p hidden class="calificacion">
+                                        {{ comment.calificacion }}
+                                    </p>
+                                    <p class="rating-{{ forloop.counter }}">
+                                    </p>
+                                    {% if comment.sentimiento == "Positivo" %}
+                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
+                                    {% elif comment.sentimiento == "Negativo" %}
+                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
+                                    {% elif comment.sentimiento == "Neutral" %}
+                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
+                                    {% else %}
+                                    <p class="emocion">Emocion: {{ comment.sentimiento }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if user.is_authenticated %}
+                                     {% if user.is_staff %}
+                                <div class="two">
+                                    <form method="post" action="{% url 'borrar_comentario' comment.id %}">
+                                        {% csrf_token %}
+                                        <button class="boton"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
+                                    </form>
+                                </div>
+                                {% endif %}
+                                     {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        // Esperamos a que el DOM esté completamente cargado
         document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionamos todos los elementos con la clase 'calificacion'
             const calificacionElements = document.querySelectorAll('.calificacion');
-
-            // Iteramos sobre cada elemento encontrado
             calificacionElements.forEach(function(calificacionElement) {
-                // Obtenemos el valor de la calificación
                 const calificacion = parseInt(calificacionElement.textContent.trim());
-                
-                // Creamos un contenedor para las estrellas
                 let ratingContainer = document.createElement('div');
                 ratingContainer.classList.add('rating');
-
-                // Generamos las estrellas
                 for (let i = 0; i < calificacion; i++) {
                     let img = document.createElement('img');
                     img.src = '/media/corp/images/estrella.png';
                     img.classList.add('star');
                     ratingContainer.appendChild(img);
                 }
-
-                // Añadimos el contenedor de estrellas al DOM
-                calificacionElement.nextElementSibling.innerHTML = ''; // Limpiamos el contenido previo
+                calificacionElement.nextElementSibling.innerHTML = '';
                 calificacionElement.nextElementSibling.appendChild(ratingContainer);
             });
         });
     </script>
     <style>
-        .star{
+        .star {
             height: 25px;
             width: 25px;
         }
