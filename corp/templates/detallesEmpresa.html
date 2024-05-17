@@ -24,7 +24,7 @@
             <div class="comment">
                 <div class="comment-form">
                     <button id="openFormBtn"><img src="/media/corp/images/newcomment.png" alt="IMG not found"></button>
-                    Agrega comentarios
+                    <p class="agregarcom">Agrega comentarios</p>
                     <div id="popupForm" class="popup">
                         <form method="post" id="myForm" class="popup-content">
                             <button id="closeFormBtn">X</button>
@@ -39,14 +39,16 @@
                         <h2 class="numcomentarios">{{ totalComentarios }} comentarios</h2>
                         {% for comment in comentariosPropios %}
                             <div class="comments">
-                                <form class="reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
-                                    {% csrf_token %}
-                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button>
-                                </form>
-                                <p class="usuario">
-                                    {{ comment.autor }}
-                                    <span class="fecha">en {{ comment.fecha }}</span>
-                                </p>
+                                <div class="reporte">
+                                    <p class="usuario">
+                                        {{ comment.autor }}
+                                        <span class="fecha">en {{ comment.fecha }}</span>
+                                    </p>
+                                    <form class="reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
+                                        {% csrf_token %}
+                                        <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button>
+                                    </form>
+                                </div>
                                 <p class="cont">
                                     {{ comment.contenido | linebreaks }}
                                 </p>
@@ -77,7 +79,7 @@
                                 {% endif %}
                                 {% if user.is_authenticated %}
                                     {% if user.is_staff %}
-                                        <form method="post" action="{% url 'borrar_comentario' comment.id %}">
+                                        <form class="borrarcom" method="post" action="{% url 'borrar_comentario' comment.id %}">
                                             {% csrf_token %}
                                             <button class="boton"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
                                         </form>
