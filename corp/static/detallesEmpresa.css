@@ -193,6 +193,9 @@ p {
 .usuario {
     font-weight: bold;
     font-size: 1.5em;
+    display: inline;
+    position: relative;
+    right: 3%;
 }
 
 .fecha {
@@ -209,6 +212,46 @@ p {
 
 .imgemocion {
     height: 50px;
+}
+
+.botonReporte {
+    background-color: #5489DC;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+}
+
+.reporteForm {
+    position: relative;
+    left: 90%;
+}
+
+.botonReporte img {
+    height: 25px;
+    width: 25px;
+}
+
+.botonReporte {
+    background-color: #5489DC;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+}
+
+.reporteForm {
+    position: relative;
+    left: 90%;
+}
+
+.botonReporte img {
+    height: 25px;
+    width: 25px;
 }
 
 .comments {
