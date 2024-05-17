@@ -103,6 +103,23 @@ def iniciarSesion_(request):
     context = {'loginform': form}
     return render(request, 'iniciarSesion.html', context=context)
 
+def reportarComentarioCT(request, id):
+    comentarioCT = get_object_or_404(ComentariosComputrabajo, id=id)
+    comentarioCT.reportes += 1
+    comentarioCT.save()
+        
+    return redirect('detallesEmpresa', id = comentarioCT.empresa.id)
+
+def reportarComentarioPropio(request, id):
+    comentarioP = get_object_or_404(ComentariosPropios, id=id)
+    comentarioP.reportes += 1
+    comentarioP.save()
+        
+    return redirect('detallesEmpresa', id = comentarioP.empresa.id)
+    
+
+    
+
 def registrarse(request):
     form = CreateUserForm()
     if request.method == "POST":

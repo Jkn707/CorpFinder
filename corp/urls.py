@@ -12,4 +12,6 @@ urlpatterns = [
     path('detalles/<int:id>/', views.detallesEmpresa, name='detallesEmpresa'),
     path('detalles/estadisticaEmpresa/<int:id>', views.estadisticaEmpresa, name='estadisticaEmpresa'),
     path('credenciales/', include('credenciales.urls')),
+    path('reportCT/<int:id>/', views.reportarComentarioCT, name='reportarComentarioCT'),
+    path('reportCP/<int:id>/', views.reportarComentarioPropio, name='reportarComentarioPropio'),
 ]
