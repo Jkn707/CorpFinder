@@ -17,21 +17,23 @@ User = get_user_model()
 def paginaPrincipal(request):
     searchTerm = request.GET.get('buscarEmpresa')
     usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
+    empresas_fav = usuario_actual.empresas_favoritas.all()
     if searchTerm:
         empresas = Empresa.objects.filter(nombre_empresa__icontains=searchTerm)
     else:
         empresas = Empresa.objects.all()
-    return render(request, 'paginaPrincipal.html', {'searchTerm': searchTerm, 'empresas': empresas, 'usuario_actual': usuario_actual})
+    return render(request, 'paginaPrincipal.html', {'searchTerm': searchTerm, 'empresas': empresas, 'usuario_actual': usuario_actual, 'empresas_fav':empresas_fav})
 
 @login_required(login_url='/iniciarSesion')
 def paginaPrincipalEmpresa(request):
     usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
+    empresas_fav = usuario_actual.empresas_favoritas.all()
     searchTerm = request.GET.get('buscarEmpresa')
     if searchTerm:
         empresas = Empresa.objects.filter(nombre_empresa__icontains=searchTerm)
     else:
         empresas = Empresa.objects.all()
-    return render(request, 'paginaPrincipalEmpresa.html', {'searchTerm': searchTerm, 'empresas': empresas, 'usuario_actual': usuario_actual})
+    return render(request, 'paginaPrincipalEmpresa.html', {'searchTerm': searchTerm, 'empresas': empresas, 'usuario_actual': usuario_actual, 'empresas_fav': empresas_fav})
 
 @login_required(login_url='/iniciarSesion')
 def detallesEmpresa(request, id):

@@ -29,7 +29,7 @@ button img{
     margin-left: 250px; 
 }
 
-h2 button{
+h1 button{
     border: none; 
     border-radius: 3px; 
 }
@@ -39,13 +39,71 @@ h2 button{
 }
 
 form {
-    display: inline; /* Para que el formulario se muestre en línea */
-    margin: 0; /* Elimina cualquier margen que el formulario pueda tener por defecto */
-    padding: 0; /* Elimina cualquier relleno que el formulario pueda tener por defecto */
-    border: none; /* Elimina cualquier borde que el formulario pueda tener por defecto */
-    background: none; /* Elimina cualquier fondo que el formulario pueda tener por defecto */
+    display: inline; 
+    margin: 0; 
+    padding: 0; 
+    border: none; 
+    background: none;
 }
 
 .imagenUser{
     width: 10%;
+}
+
+.empresas {
+    background-color: #5489DC;
+    border-radius: 25px;
+    width: 90%;
+    margin: 2% 0% 2% 0%;
+    padding: 1% 1% 0% 1%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 75px;
+}
+
+.empresa {
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
+.uno {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 2%;
+    justify-self: center;
+    align-self: center;
+    width: 15%;
+}
+
+.dos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.nombre {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.imag {
+    margin-bottom: 1.5%;
+}
+
+.btn.btn-primary.btn-sm{
+    width: 20%;
+    background-color: hsl(217, 66%, 60%);
+    border: none;
+    border-radius: 10px;
+    padding: 1%;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-left: 40%;
 }

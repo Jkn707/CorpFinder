@@ -24,6 +24,15 @@
                     <div class="empresa">
                         <div class="uno">
                             <img class="imag" src="{{ Empresa.logo_empresa }}" alt="">
+                            {% if Empresa not in empresas_fav %}    
+                            <form method="post" action="{% url 'agregar_empresa_fav' Empresa.id %}">
+                                <button class="boton"><img src="/media/corp/images/guardar_fav.png" alt=""></button> 
+                            </form>  
+                            {% else %}
+                            <form method="post" action="{% url 'quitar_empresa_fav' Empresa.id %}">
+                                <button class="boton"><img src="/media/corp/images/quitar_fav.png" alt=""></button> 
+                            </form> 
+                            {% endif %}
                         </div>
                         <div class="dos">
                             <h3 class="nombre">{{ Empresa.nombre_empresa }}</h3>
