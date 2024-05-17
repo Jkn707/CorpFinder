@@ -1,11 +1,24 @@
 {% extends 'base3.html' %}
-{% load static %}
 {% block content %}
-<h1>Edita tu perfil</h1>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ credencial_form.as_p }}
-  <button type="submit">Guardar cambios</button>
-</form>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'edit.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credenciales</title>
+</head>
+<body>
+    <h1>Edita tu perfil</h1>
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ user_form.as_p }}
+        </div>
+        <div class="form-group">
+            {{ credencial_form.as_p }}
+        </div>
+        <button type="submit" class="submit-button">Guardar cambios</button>
+    </form>
+</body>
 {% endblock %}

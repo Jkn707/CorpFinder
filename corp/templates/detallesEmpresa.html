@@ -18,7 +18,7 @@
                 {% if empresa.subtitle_content %}
                     <p class="content">{{ empresa.subtitle_content }}</p>
                 {% else %}
-                    <p>Esta empresa no tiene descripcion</p>
+                    <p class="alert alert-warning">Esta empresa no tiene descripcion</p>
                 {% endif %}
 
                 <div class="marcaEmpleadora">
@@ -52,25 +52,37 @@
                                 <p class="usuario">
                                     {{ comment.autor }}
                                     <span class="fecha">
-                                    {{ comment.fecha }} 
-                                </span>
-                            </p>
-                            <p class="cont">
-                                {{ comment.contenido | linebreaks }}
-                            </p>
-                        </div>
-                    {% endfor %}
-                    {% for comment in comentariosCT %}
-                        <div class="comments" >
-                            <p class="usuario"> {{ comment.autor }}
-                                <span class="fecha">
-                                        Desde {{ comment.ubicacion }} en {{ comment.fecha }}
-                                </span>
-                            </p>
-                            <p class="cont">
-                                {{ comment.contenido | linebreaks }}
-                            </p>
-                            {% if comment.sentimiento == "Positivo" %}
+                                    en {{ comment.fecha }} 
+                                    </span>
+                                </p>
+                                <p class="cont">
+                                    {{ comment.contenido | linebreaks }}
+                                </p>
+                                <p hidden class="calificacion">
+                                    {{ comment.calificacion }}
+                                </p>
+                                <p class="rating-{{forloop.counter}}">
+
+                                </p>
+                            </div>
+                        {% endfor %}
+                        {% for comment in comentariosCT %}
+                            <div class="comments" >
+                                <p class="usuario"> {{ comment.autor }}
+                                     <span class="fecha">
+                                        en {{ comment.fecha }}
+                                    </span>
+                                </p>
+                                <p class="cont">
+                                    {{ comment.contenido | linebreaks }}
+                                </p>
+                                <p hidden class="calificacion">
+                                    {{ comment.calificacion }}
+                                </p>
+                                <p class="rating-{{forloop.counter}}">
+
+                                </p>
+                                {% if comment.sentimiento == "Positivo" %}
                                 <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
                             {% elif comment.sentimiento  == "Negativo"%}
                                 <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
@@ -86,5 +98,40 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        // Esperamos a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionamos todos los elementos con la clase 'calificacion'
+            const calificacionElements = document.querySelectorAll('.calificacion');
+
+            // Iteramos sobre cada elemento encontrado
+            calificacionElements.forEach(function(calificacionElement) {
+                // Obtenemos el valor de la calificación
+                const calificacion = parseInt(calificacionElement.textContent.trim());
+                
+                // Creamos un contenedor para las estrellas
+                let ratingContainer = document.createElement('div');
+                ratingContainer.classList.add('rating');
+
+                // Generamos las estrellas
+                for (let i = 0; i < calificacion; i++) {
+                    let img = document.createElement('img');
+                    img.src = '/media/corp/images/estrella.png';
+                    img.classList.add('star');
+                    ratingContainer.appendChild(img);
+                }
+
+                // Añadimos el contenedor de estrellas al DOM
+                calificacionElement.nextElementSibling.innerHTML = ''; // Limpiamos el contenido previo
+                calificacionElement.nextElementSibling.appendChild(ratingContainer);
+            });
+        });
+    </script>
+    <style>
+        .star{
+            height: 25px;
+            width: 25px;
+        }
+    </style>
 </body>
 {% endblock content %}

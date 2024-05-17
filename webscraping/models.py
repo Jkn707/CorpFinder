@@ -51,7 +51,6 @@ class Empresa(models.Model):
 
 class ComentariosComputrabajo(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='comentarios')
-    ubicacion = models.CharField(max_length=255, blank=True, null=True)
     fecha = models.CharField(max_length=255, blank=True, null=True)
     contenido = models.CharField(max_length=255, blank=True, null=True)
     calificacion = models.IntegerField(default=0, null=True, blank=True)
@@ -62,7 +61,7 @@ class ComentariosPropios(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='comentarios_propios')
     fecha = models.CharField(max_length=255, blank=True, null=True)
     contenido = models.TextField(blank=True, null=True)
-    calificacion = models.IntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    calificacion = models.IntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(5)])
     sentimiento = models.CharField(max_length=255, blank=True, null=True)
     autor = models.CharField(max_length=255, blank=True, default="Anónimo")
 

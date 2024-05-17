@@ -21,6 +21,11 @@
             <a class="nav-link" href="{% url 'credenciales' %}">Credenciales</a>
           </li>
         </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <p class="nav-link mb-0">Hola, {{ usuario_actual.usuario.username }}</p>
+          </li>
+        </ul>
     </div>
   </nav>
   {% block content %}
