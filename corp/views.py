@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.urls import reverse
 from credenciales.models import Credenciales
 import json
+from webscraping.nlp import obtenerEmociones
 
 User = get_user_model()
 
@@ -42,6 +43,13 @@ def detallesEmpresa(request, id):
     empresa = get_object_or_404(Empresa, id=id)
     comentariosCT = ComentariosComputrabajo.objects.filter(empresa_id=empresa.id)
     comentariosPropios = ComentariosPropios.objects.filter(empresa_id=empresa.id)
+    
+    # Procesar sentimientos de comentarios propios
+    for comentarioP in comentariosPropios:
+        emocion = obtenerEmociones(comentarioP.contenido)
+        comentarioP.sentimiento = emocion
+        comentarioP.save()
+    
     nuevo_comentario = None
     if request.method == 'POST':
         json_data = json.loads(request.body)
@@ -52,9 +60,11 @@ def detallesEmpresa(request, id):
             nuevo_comentario.empresa = empresa
             nuevo_comentario.fecha = obtenerMesYAño(timezone.now())
             nuevo_comentario.autor = usuario_actual.usuario.username
+            nuevo_comentario.sentimiento = obtenerEmociones(nuevo_comentario.contenido)  # Procesar sentimiento para el nuevo comentario
             nuevo_comentario.save()
     else:
         comentario_form = ComentarioForm()
+    
     estadistica_url = reverse('estadisticaEmpresa', args=[empresa.id])
     return render(request, template_name, {
         'empresa': empresa,
