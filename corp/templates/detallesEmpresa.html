@@ -18,7 +18,7 @@
                 {% if empresa.subtitle_content %}
                     <p class="content">{{ empresa.subtitle_content }}</p>
                 {% else %}
-                    <p class="alert alert-warning">Esta empresa no tiene descripcion</p>
+                    <p class="alert alert-warning">Esta empresa no tiene descripción</p>
                 {% endif %}
                 <div class="marcaEmpleadora">
                     <div class="col-12">
@@ -40,23 +40,19 @@
                             <button type="submit">Enviar</button>
                         </form>
                     </div>
-                    <script src="{% static 'detallesEmpresa.js' %}"></script>
                 </div>
                 <div class="comentarios">
                     <div class="comentario">
                         <h2 class="numcomentarios">{{ totalComentarios }} comentarios</h2>
                         {% for comment in comentariosPropios %}
                             <div class="comments">
-                                <div class="one">
-                                <form class = "reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
+                                <form class="reporteForm" method="post" action="{% url 'reportarComentarioPropio' comment.id %}">
                                     {% csrf_token %}
-                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button> 
-                                </form> 
+                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button>
+                                </form>
                                 <p class="usuario">
                                     {{ comment.autor }}
-                                    <span class="fecha">
-                                    en {{ comment.fecha }} 
-                                    </span>
+                                    <span class="fecha">en {{ comment.fecha }}</span>
                                 </p>
                                 <p class="cont">
                                     {{ comment.contenido | linebreaks }}
@@ -64,89 +60,36 @@
                                 <p hidden class="calificacion">
                                     {{ comment.calificacion }}
                                 </p>
-                                <p class="rating-{{forloop.counter}}">
-
-                                </p>
-                            </div>
-                        {% endfor %}
-                        {% for comment in comentariosCT %}
-                            <div class="comments" >
-                                <form class = "reporteForm" method="post" action="{% url 'reportarComentarioCT' comment.id %}">
-                                    {% csrf_token %}
-                                    <button class="botonReporte"><img src="/media/corp/images/report.png" alt=""></button> 
-                                </form> 
-                                <p class="usuario"> {{ comment.autor }}
-                                     <span class="fecha">
-                                        en {{ comment.fecha }}
-                                    </span>
-                                </p> 
-                                <p class="cont">
-                                    {{ comment.contenido | linebreaks }}
-                                </p>
-                                <p hidden class="calificacion">
-                                    {{ comment.calificacion }}
-                                </p>
-                                <p class="rating-{{forloop.counter}}">
-
-                                </p>
-                                {% if comment.sentimiento == "Positivo" %}
-                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
-                            {% elif comment.sentimiento  == "Negativo"%}
-                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
-                            {% elif comment.sentimiento  == "Neutral"%}
-                                <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
-                            {% else %}
-                                <p class="emocion">Emocion: comment.sentimiento </p>
-                            {% endif %}
-                        </div>
-                                {% if user.is_authenticated %}
-                                     {% if user.is_staff %}
-                                <div class="two">
-                                    <form method="post" action="{% url 'borrar_comentario_p' comment.id %}">
-                                        {% csrf_token %}
-                                        <button class="boton_p"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
-                                    </form>
-                                </div>
-                                {% endif %}
-                                     {% endif %}
-                                
-                                
+                                <p class="rating-{{ forloop.counter }}"></p>
                             </div>
                         {% endfor %}
                         {% for comment in comentariosCT %}
                             <div class="comments">
-                                <div class="one">
-                                    <p class="usuario">{{ comment.autor }}
-                                        <span class="fecha">en {{ comment.fecha }}</span>
-                                    </p>
-                                    <p class="cont">
-                                        {{ comment.contenido | linebreaks }}
-                                    </p>
-                                    <p hidden class="calificacion">
-                                        {{ comment.calificacion }}
-                                    </p>
-                                    <p class="rating-{{ forloop.counter }}">
-                                    </p>
-                                    {% if comment.sentimiento == "Positivo" %}
-                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
-                                    {% elif comment.sentimiento == "Negativo" %}
-                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
-                                    {% elif comment.sentimiento == "Neutral" %}
-                                    <p class="emocion">Emocion: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
-                                    {% else %}
-                                    <p class="emocion">Emocion: {{ comment.sentimiento }}</p>
-                                    {% endif %}
-                                </div>
-                                {% if user.is_authenticated %}
-                                     {% if user.is_staff %}
-                                <div class="two">
-                                    <form method="post" action="{% url 'borrar_comentario' comment.id %}">
-                                        {% csrf_token %}
-                                        <button class="boton"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
-                                    </form>
-                                </div>
+                                <p class="usuario">{{ comment.autor }}
+                                    <span class="fecha">en {{ comment.fecha }}</span>
+                                </p>
+                                <p class="cont">
+                                    {{ comment.contenido | linebreaks }}
+                                </p>
+                                <p hidden class="calificacion">{{ comment.calificacion }}</p>
+                                <p class="rating-{{ forloop.counter }}"></p>
+                                {% if comment.sentimiento == "Positivo" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/positivo.png" alt=""></p>
+                                {% elif comment.sentimiento == "Negativo" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/negativo.png" alt=""></p>
+                                {% elif comment.sentimiento == "Neutral" %}
+                                    <p class="emocion">Emoción: <img class="imgemocion" src="/media/corp/images/neutro.png" alt=""></p>
+                                {% else %}
+                                    <p class="emocion">Emoción: {{ comment.sentimiento }}</p>
                                 {% endif %}
-                                     {% endif %}
+                                {% if user.is_authenticated %}
+                                    {% if user.is_staff %}
+                                        <form method="post" action="{% url 'borrar_comentario' comment.id %}">
+                                            {% csrf_token %}
+                                            <button class="boton"><img src="/media/corp/images/borrar_comentario.png" alt=""></button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
@@ -154,6 +97,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'detallesEmpresa.js' %}"></script>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const calificacionElements = document.querySelectorAll('.calificacion');
