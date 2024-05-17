@@ -4,9 +4,11 @@ from .forms import NombreEmpresa
 from .computrabajo import buscarEmpresas, obtenerDatosEmpresa, obtenerComentarios
 from .nlp import obtenerEmociones
 from .models import Empresa, ComentariosComputrabajo
+from credenciales.models import Credenciales
 
 def scrapEmpresa(request):
     form = NombreEmpresa()
+    usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
 
     if request.method == "POST":
         form = NombreEmpresa(request.POST)
@@ -24,11 +26,13 @@ def scrapEmpresa(request):
             else:
                 messages.error(request, "No se encontraron empresas")
 
-    return render(request, 'busqueda.html', {'form': form})
+    return render(request, 'busqueda.html', {'form': form,
+                                             "usuario_actual": usuario_actual})
 
 def resultadoEmpresa(request):
     form = NombreEmpresa()  # Instancia del formulario de búsqueda
     opciones = request.session.get('opciones')
+    usuario_actual = Credenciales.objects.get(usuario_id=request.user.id)
     
     if request.method == "POST":
         # Procesar la selección de la empresa aquí
@@ -64,4 +68,4 @@ def resultadoEmpresa(request):
 
     # Obtener los datos de las empresas para mostrar en la página de resultados
     empresas = opciones if opciones else {}  # Obtén las empresas y sus enlaces
-    return render(request, 'resultado.html', {'nombre': '', 'empresas_link': empresas, 'form': form})
+    return render(request, 'resultado.html', {'nombre': '', 'empresas_link': empresas, 'form': form, 'usuario_actual': usuario_actual})
