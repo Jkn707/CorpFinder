@@ -63,7 +63,7 @@
                                 {% else %}
                                     <p class="emocion">Emoción: {{ comment.sentimiento }}</p>
                                 {% endif %}
-                                <p class="rating-{{ forloop.counter }}"></p>-
+                                <p class="rating-{{ forloop.counter }}"></p>-  
                                 {% if user.is_authenticated %}
                                     {% if user.is_staff %}
                                         <form class="borrarcom" method="post" action="{% url 'borrar_comentario_p' comment.id %}">
